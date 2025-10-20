@@ -1,4 +1,5 @@
-document.getElementById('checkProgressBtn').addEventListener('click', function() {
+// FUNGSI JAVASCRIPT: Logika untuk melacak progress laporan
+    document.getElementById('checkProgressBtn').addEventListener('click', function() {
         const kodeLaporan = document.getElementById('kodeLaporan').value.trim();
         const statusDiv = document.getElementById('progressStatus');
 
