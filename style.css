@@ -1,0 +1,130 @@
+:root {
+            --bs-blue-dark: #1e2832; /* Warna biru gelap navbar/footer */
+            --bs-blue-light: #547e9b; /* Warna biru sedang/gradient */
+            --bs-green-teal: #4b8a7b; /* Warna hijau/teal */
+            --bs-yellow-light: #f7f9e8; /* Warna kuning muda */
+            --bs-purple-dark: #6a5acd; /* Warna ungu (tidak digunakan di header ini) */
+            --bg-blue-dark: #132338; /* Latar belakang biru gelap (section-purple) */
+
+            /* Warna Accent untuk Ilustrasi, disesuaikan agar cocok dengan palet baru */
+            --accent-teal: var(--bs-green-teal); 
+            --accent-blue: #3b5998; /* Dibiarkan karena terlihat di gambar */
+        }
+
+        /* Gradient Background untuk Navbar dan Header (UPDATED dengan 3 warna) */
+        .header-bg {
+            background: linear-gradient(135deg, var(--bs-blue-dark), var(--bs-blue-light) 50%, var(--bs-green-teal));
+            color: white;
+            padding-bottom: 5rem;
+        }
+        
+        /* Penyesuaian Navbar agar lebih ramping */
+        .navbar {
+            padding-top: 0.5rem;
+            padding-bottom: 0.5rem;
+        }
+
+        /* Styling untuk Hero Section */
+        .hero-section {
+            padding-top: 80px; /* Jarak dari fixed-top navbar */
+            padding-bottom: 80px;
+        }
+
+        /* Styling untuk Kotak Ilustrasi */
+        .illustration-box {
+            border-radius: 15px;
+        }
+        
+        .box-teal {
+            background-color: var(--accent-teal); /* Menggunakan accent teal baru */
+            width: 100%;
+            height: 200px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            z-index: 10;
+        }
+
+        .box-blue {
+            background-color: var(--accent-blue); /* Menggunakan accent blue */
+            width: 100%;
+            height: 300px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 50px;
+            right: 0;
+            z-index: 5;
+        }
+
+        /* Card Overlay (Kotak Putih dengan Bayangan) */
+        .card-overlay {
+            background-color: white;
+            border-radius: 8px;
+            padding: 8px 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            color: #333;
+            font-size: 0.85rem;
+            z-index: 20;
+        }
+        
+        /* Penempatan Card Overlay */
+        .card-overlay-top {
+            top: 20px;
+            left: -100px;
+            white-space: nowrap;
+        }
+
+        .card-overlay-bottom {
+            bottom: -50px;
+            left: 50px;
+        }
+
+        /* === Gaya untuk section-section lain (dari update Anda) === */
+        .section-yellow {
+            background-color: var(--bs-yellow-light);
+            padding: 2rem 0;
+        }
+
+        .section-teal {
+            background-color: var(--bs-green-teal);
+            padding: 2rem 0;
+            color: white;
+        }
+
+        .section-purple {
+            background-color: var(--bg-blue-dark); /* Menggunakan variabel baru: --bg-blue-dark */
+            padding: 3rem 0;
+            color: white;
+        }
+
+        .section-grid {
+            background-color: #f0f8ff;
+            background-image: linear-gradient(to right, lightgray 1px, transparent 1px),
+                              linear-gradient(to bottom, lightgray 1px, transparent 1px);
+            background-size: 20px 20px;
+            padding: 3rem 0;
+        }
+
+        .card-pelapor {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .card-lapor {
+            border: 1px solid #ccc;
+            padding: 1rem;
+            text-align: center;
+            background-color: white;
+        }
+        
+        .card-monitoring {
+            background-color: white;
+            color: #212529;
+            padding: 2rem;
+            border-radius: 0.5rem;
+        }
