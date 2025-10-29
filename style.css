@@ -1,130 +1,732 @@
+/* === 1. VARIABEL & RESET DASAR === */
 :root {
-            --bs-blue-dark: #1e2832; /* Warna biru gelap navbar/footer */
-            --bs-blue-light: #547e9b; /* Warna biru sedang/gradient */
-            --bs-green-teal: #4b8a7b; /* Warna hijau/teal */
-            --bs-yellow-light: #f7f9e8; /* Warna kuning muda */
-            --bs-purple-dark: #6a5acd; /* Warna ungu (tidak digunakan di header ini) */
-            --bg-blue-dark: #132338; /* Latar belakang biru gelap (section-purple) */
+  --color-dark-blue: #132338;
+  --color-mid-blue: #547e9b;
+  --color-teal: #4b8a7b;
+  --color-light-yellow: #f3f5db;
+  --color-purple: #6a5acd;
+  --color-accent-blue: #3b5998;
+  --color-green: #3a6845;
 
-            /* Warna Accent untuk Ilustrasi, disesuaikan agar cocok dengan palet baru */
-            --accent-teal: var(--bs-green-teal); 
-            --accent-blue: #3b5998; /* Dibiarkan karena terlihat di gambar */
-        }
+  --color-text-dark: #333;
+  --color-text-light: #fff;
 
-        /* Gradient Background untuk Navbar dan Header (UPDATED dengan 3 warna) */
-        .header-bg {
-            background: linear-gradient(135deg, var(--bs-blue-dark), var(--bs-blue-light) 50%, var(--bs-green-teal));
-            color: white;
-            padding-bottom: 5rem;
-        }
-        
-        /* Penyesuaian Navbar agar lebih ramping */
-        .navbar {
-            padding-top: 0.5rem;
-            padding-bottom: 0.5rem;
-        }
+  --max-width: 1200px;
+  --padding-x: 5vw; /* Unit Relatif untuk Padding Horizontal */
+}
 
-        /* Styling untuk Hero Section */
-        .hero-section {
-            padding-top: 80px; /* Jarak dari fixed-top navbar */
-            padding-bottom: 80px;
-        }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-        /* Styling untuk Kotak Ilustrasi */
-        .illustration-box {
-            border-radius: 15px;
-        }
-        
-        .box-teal {
-            background-color: var(--accent-teal); /* Menggunakan accent teal baru */
-            width: 100%;
-            height: 200px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            position: relative;
-            z-index: 10;
-        }
+body {
+  font-family: sans-serif;
+  line-height: 1.6;
+  color: var(--color-text-dark);
+}
 
-        .box-blue {
-            background-color: var(--accent-blue); /* Menggunakan accent blue */
-            width: 100%;
-            height: 300px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-            position: absolute;
-            top: 50px;
-            right: 0;
-            z-index: 5;
-        }
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
 
-        /* Card Overlay (Kotak Putih dengan Bayangan) */
-        .card-overlay {
-            background-color: white;
-            border-radius: 8px;
-            padding: 8px 15px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            position: absolute;
-            color: #333;
-            font-size: 0.85rem;
-            z-index: 20;
-        }
-        
-        /* Penempatan Card Overlay */
-        .card-overlay-top {
-            top: 20px;
-            left: -100px;
-            white-space: nowrap;
-        }
+/* Container utama untuk membatasi lebar konten */
+.main-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--padding-x);
+}
 
-        .card-overlay-bottom {
-            bottom: -50px;
-            left: 50px;
-        }
+.section-padding {
+  padding: 4rem 0;
+}
 
-        /* === Gaya untuk section-section lain (dari update Anda) === */
-        .section-yellow {
-            background-color: var(--bs-yellow-light);
-            padding: 2rem 0;
-        }
+.section-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 3rem;
+}
 
-        .section-teal {
-            background-color: var(--bs-green-teal);
-            padding: 2rem 0;
-            color: white;
-        }
+.text-center {
+  text-align: center;
+}
 
-        .section-purple {
-            background-color: var(--bg-blue-dark); /* Menggunakan variabel baru: --bg-blue-dark */
-            padding: 3rem 0;
-            color: white;
-        }
+/* === 2. TYPOGRAPHY & UTILITIES === */
+.main-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
 
-        .section-grid {
-            background-color: #f0f8ff;
-            background-image: linear-gradient(to right, lightgray 1px, transparent 1px),
-                              linear-gradient(to bottom, lightgray 1px, transparent 1px);
-            background-size: 20px 20px;
-            padding: 3rem 0;
-        }
+.description {
+  font-size: 1.1rem;
+  max-width: 500px;
+  margin-bottom: 1.5rem;
+}
 
-        .card-pelapor {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 1.5rem;
-        }
+.fw-bold {
+  font-weight: bold;
+}
+.text-white {
+  color: var(--color-text-light);
+}
+.text-muted {
+  color: #ccc;
+}
+.mt-20 {
+  margin-top: 20px;
+}
+.mt-40 {
+  margin-top: 40px;
+}
 
-        .card-lapor {
-            border: 1px solid #ccc;
-            padding: 1rem;
-            text-align: center;
-            background-color: white;
-        }
-        
-        .card-monitoring {
-            background-color: white;
-            color: #212529;
-            padding: 2rem;
-            border-radius: 0.5rem;
-        }
+/* Tombol Dasar */
+.btn {
+  padding: 10px 25px;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  border: 2px solid transparent;
+}
+
+.btn-primary {
+  background-color: var(--color-teal);
+  color: var(--color-text-light);
+}
+.btn-primary:hover {
+  background-color: var(--color-dark-blue);
+  color: var(--color-text-light);
+}
+
+.btn-outline-light {
+  border-color: var(--color-text-light);
+  background: transparent;
+  color: var(--color-text-light);
+}
+.btn-outline-light:hover {
+  background-color: var(--color-text-light);
+  color: var(--color-dark-blue);
+}
+
+.btn-outline-dark {
+  border-color: var(--color-dark-blue);
+  color: var(--color-dark-blue);
+  background: transparent;
+}
+.btn-outline-dark:hover {
+  background-color: #132338;
+  color: var(--color-text-light);
+}
+
+/* Ikon & List */
+.social-icons a {
+  color: var(--color-text-light);
+  margin-left: 15px;
+  font-size: 1.1rem;
+  text-decoration: none;
+}
+.clean-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.clean-list li {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+.icon-green {
+  color: var(--color-teal);
+}
+.icon-primary {
+  color: var(--color-teal);
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+/* === 3. HEADER & NAVIGASI (FLEXBOX) === */
+.asw-footer a {
+  display: none !important;
+}
+.asw-footer span {
+  display: none !important;
+}
+
+.header-bg {
+  background: linear-gradient(
+    135deg,
+    var(--color-dark-blue) 0%,
+    #4a71a5 40%,
+    #8c9da2 100%
+  );
+  color: var(--color-text-light);
+}
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 10px 0;
+}
+
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--color-text-light);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-links .nav-item {
+  color: var(--color-text-light);
+  text-decoration: none;
+  padding: 5px 15px;
+  border: 1px solid transparent;
+  border-radius: 50px;
+  transition: background-color 0.3s;
+}
+
+.nav-links .nav-item:hover {
+  background-color: rgba(53, 40, 40, 0.5);
+}
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.hamburger {
+  display: none; /* Sembunyikan di desktop */
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  color: var(--color-text-light);
+  cursor: pointer;
+}
+
+/* === HERO SECTION (FLEXBOX) === */
+.hero-section {
+  padding-top: 120px;
+  min-height: 80vh;
+  display: flex; /* Memastikan konten hero berada di tengah secara vertikal */
+  align-items: center;
+}
+
+.hero-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 50px;
+  width: 100%;
+}
+
+.hero-text {
+  flex-basis: 50%;
+}
+
+/* Ilustrasi */
+.hero-illustration {
+  flex-basis: 50%;
+  height: 400px;
+  position: relative;
+}
+
+.box-blue,
+.box-teal,
+.main-illustration,
+.card-overlay {
+  border-radius: 15px;
+  position: absolute;
+}
+
+.box-blue {
+  background-color: var(--color-accent-blue);
+  width: 100%;
+  height: 350px;
+  top: 0;
+  right: -50px;
+  z-index: 5;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.box-green {
+  background-color: var(--color-green);
+  width: 100%;
+  height: 20px;
+  top: 10px;
+  right: 10px;
+  z-index: 20;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+.box-teal {
+  background-color: var(--color-teal);
+  width: 75%;
+  height: 300px;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  z-index: 10;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.main-illustration {
+  max-width: 60%;
+  right: 0;
+  bottom: 0;
+  z-index: 15;
+  transform: rotate(5deg);
+}
+
+.card-overlay {
+  background-color: var(--color-text-light);
+  padding: 5px 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  color: var(--color-text-dark);
+  font-size: 0.85rem;
+  position: absolute;
+  z-index: 20;
+}
+.card-overlay2 {
+  background-color: var(--color-green);
+  padding: 5px 15px;
+  height: 150px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  color: var(--color-text-dark);
+  font-size: 0.85rem;
+  position: absolute;
+  z-index: 20;
+}
+.card-overlay-top {
+  bottom: 300px;
+  left: -10%;
+  width: 40%;
+}
+.card-overlay-middle {
+  bottom: 150px;
+  left: -10%;
+  width: 50%;
+}
+.card-overlay-bottom {
+  bottom: 60px;
+  left: -10%;
+  width: 50%;
+}
+
+/* === 4. STATISTIK (CSS GRID) === */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.card-pelapor {
+  padding: 2.5rem 1.5rem;
+  border-radius: 15px;
+  color: var(--color-text-light);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card-blue-light {
+  background-color: var(--color-mid-blue);
+}
+.card-green-teal {
+  background-color: var(--color-teal);
+}
+.card-purple-dark {
+  background-color: var(--color-purple);
+}
+
+.card-inner-flex {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: left;
+}
+
+.pelapor-icon-circle {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--color-text-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-right: 20px;
+}
+.pelapor-icon-circle .fa-users {
+  color: var(--color-mid-blue);
+}
+.pelapor-icon-circle .fa-hand-holding-heart {
+  color: var(--color-teal);
+}
+.pelapor-icon-circle .fa-shield-alt {
+  color: var(--color-purple);
+}
+
+.stat-number {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 0;
+  line-height: 1;
+}
+
+.stat-label {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+/* === 5. CARA LAPOR (FLEX & GRID) === */
+.section-yellow {
+  background-color: var(--color-light-yellow);
+}
+
+.tab-nav {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.btn-tab {
+  border: 2px solid var(--color-text-dark);
+  color: var(--color-text-dark);
+  background: transparent;
+  padding: 8px 20px;
+}
+.btn-tab:hover {
+  background-color: var(--color-dark-blue);
+  color: var(--color-text-light);
+}
+.btn-tab.active {
+  background-color: var(--color-teal);
+  color: var(--color-text-light);
+  border-color: var(--color-teal);
+}
+
+.steps-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.card-lapor {
+  background-color: var(--color-text-light);
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+.step-number {
+  font-weight: bold;
+}
+
+/* === 6. KAPAN HARUS LAPOR? (GRID) === */
+.section-teal {
+  background-color: var(--color-teal);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.card-info {
+  background-color: var(--color-text-light);
+  color: var(--color-text-dark);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.card-info img {
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+.card-text {
+  margin-bottom: 20px;
+}
+/* === 7. MONITORING (FLEXBOX) === */
+.section-purple {
+  background-color: var(--color-dark-blue);
+  color: var(--color-text-light);
+}
+
+.monitoring-layout {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+.monitoring-form-wrapper {
+  flex: 1;
+}
+
+.monitoring-text-content {
+  flex: 1;
+}
+
+.card-monitoring {
+  background-color: var(--color-text-light);
+  color: var(--color-text-dark);
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.icon-large {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+.input-group {
+  display: flex;
+  border-radius: 50px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  height: 45px;
+  margin-top: 10px;
+}
+
+.input-group input {
+  flex-grow: 1;
+  padding: 0 20px;
+  border: none;
+  outline: none;
+}
+
+.input-group button {
+  border-radius: 0;
+  border: none;
+  padding: 0 20px;
+  font-weight: bold;
+  height: 100%;
+}
+
+/* === 8. BANTUAN/FAQ (FLEXBOX) === */
+.section-grid {
+  background-color: #f0f8ff;
+}
+
+.assistance-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+}
+
+.assistance-illustration {
+  flex-basis: 40%;
+  text-align: center;
+}
+
+.assistance-illustration img {
+  border-radius: 50%;
+  background-color: var(--color-light-yellow);
+  padding: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.faq-list {
+  flex-basis: 60%;
+}
+
+.faq-item {
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.faq-button {
+  width: 100%;
+  padding: 15px;
+  text-align: left;
+  background-color: #f9f9f9;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.faq-answer {
+  padding: 15px;
+  background-color: var(--color-text-light);
+  display: none; /* Akan diatur dengan JS */
+}
+.faq-answer.show {
+  display: block; /* Tampilkan default yang pertama */
+}
+
+/* === 9. FOOTER (CSS GRID) === */
+.main-footer {
+  background-color: var(--color-dark-blue);
+  color: var(--color-text-light);
+  padding-top: 40px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 30px;
+  padding-bottom: 30px;
+}
+
+.footer-col h5 {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.footer-col a {
+  color: var(--color-text-light);
+  text-decoration: none;
+  font-size: 0.95rem;
+}
+.footer-col a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 15px 0;
+  text-align: center;
+}
+
+/* === 10. MEDIA QUERIES (RESPONSIVITAS MURNI) === */
+
+/* Tablet & Mobile (Mulai dari 768px ke bawah) */
+@media (max-width: 992px) {
+  .main-container {
+    padding: 0 4vw;
+  }
+
+  /* Navigasi */
+  .nav-links,
+  .nav-actions .social-icons {
+    display: none; /* Sembunyikan link menu dan ikon sosial di mobile */
+  }
+  .hamburger {
+    display: block;
+  }
+
+  /* Hero Section */
+  .hero-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .hero-text {
+    flex-basis: 100%;
+    padding-top: 20px;
+  }
+  .hero-illustration {
+    flex-basis: 100%;
+    margin-top: 20px;
+    height: 300px; /* Diperkecil untuk mobile */
+  }
+  .card-overlay {
+    display: none; /* Sembunyikan Overlay Card di Mobile */
+  }
+
+  /* Statistik, Info, Langkah (Dari 3/4 kolom menjadi 1/2 kolom) */
+  .stats-grid,
+  .info-grid,
+  .steps-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+  .card-inner-flex {
+    flex-direction: column;
+    text-align: center;
+  }
+  .pelapor-icon-circle {
+    margin: 0 auto 10px;
+  }
+
+  /* Monitoring Section */
+  .monitoring-layout {
+    flex-direction: column;
+  }
+  .monitoring-text-content {
+    text-align: center;
+    margin-top: 30px;
+  }
+  .clean-list {
+    text-align: center;
+  }
+  .clean-list li {
+    display: inline-block;
+    margin-right: 15px;
+  }
+
+  /* Bantuan/FAQ */
+  .assistance-content {
+    flex-direction: column;
+  }
+  .assistance-illustration {
+    flex-basis: 100%;
+    order: -1; /* Pindahkan ilustrasi ke atas */
+    margin-bottom: 30px;
+  }
+  .faq-list {
+    flex-basis: 100%;
+  }
+
+  /* Footer */
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+    text-align: center;
+  }
+  .social-footer {
+    order: 4;
+    text-align: center;
+  }
+}
+
+/* Ponsel Kecil (Di bawah 576px) */
+@media (max-width: 576px) {
+  .main-title {
+    font-size: 2.5rem;
+  }
+  .stats-grid,
+  .info-grid,
+  .steps-grid,
+  .footer-grid {
+    grid-template-columns: 1fr; /* Satu kolom penuh */
+  }
+  .tab-nav {
+    flex-wrap: wrap;
+  }
+  .tab-nav .btn {
+    flex: 1 1 45%;
+  }
+}
