@@ -13,6 +13,10 @@
 
   --max-width: 1200px;
   --padding-x: 5vw; /* Unit Relatif untuk Padding Horizontal */
+  /* Calm motion tokens */
+  --ease-calm: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-quick: 400ms;
+  --dur-calm: 720ms;
 }
 
 * {
@@ -123,6 +127,24 @@ img {
   color: var(--color-text-light);
 }
 
+/* === Micro-interactions & Calm Hover Effects === */
+.btn,
+.nav-links .nav-item,
+.card,
+.card-lapor,
+.card-info,
+.card-pelapor {
+  transition: transform var(--dur-calm) var(--ease-calm), box-shadow var(--dur-calm) var(--ease-calm), background-color var(--dur-calm) var(--ease-calm), color var(--dur-calm) var(--ease-calm);
+}
+
+.card:hover,
+.card-lapor:hover,
+.card-info:hover,
+.card-pelapor:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12);
+}
+
 /* Ikon & List */
 .social-icons a {
   color: var(--color-text-light);
@@ -173,6 +195,13 @@ img {
   width: 100%;
   z-index: 1000;
   padding: 10px 0;
+  transition: background var(--dur-calm) var(--ease-calm), backdrop-filter var(--dur-calm) var(--ease-calm);
+}
+
+/* Navbar transparency on scroll (calm) */
+.navbar.scrolled {
+  background: rgba(19, 35, 56, 0.85);
+  backdrop-filter: saturate(1.2) blur(6px);
 }
 
 .nav-content {
@@ -293,6 +322,17 @@ img {
   transform: rotate(5deg);
 }
 
+/* Gentle floating pulse for icons/illustrations */
+.icon-primary,
+.icon-large {
+  animation: floatSoft 8s var(--ease-calm) infinite;
+}
+
+@keyframes floatSoft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
 .card-overlay {
   background-color: var(--color-text-light);
   padding: 5px 15px;
@@ -391,6 +431,18 @@ img {
 .stat-label {
   margin: 0;
   font-size: 0.9rem;
+}
+
+/* === Reveal on Scroll (calm fade-in) === */
+.reveal {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity var(--dur-calm) var(--ease-calm), transform var(--dur-calm) var(--ease-calm);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* === 5. CARA LAPOR (FLEX & GRID) === */
@@ -581,10 +633,19 @@ img {
 .faq-answer {
   padding: 15px;
   background-color: var(--color-text-light);
-  display: none; /* Akan diatur dengan JS */
+  display: none; /* default hidden */
+  overflow: hidden;
+  opacity: 0;
+  transition: height var(--dur-calm) var(--ease-calm), opacity var(--dur-quick) var(--ease-calm);
 }
 .faq-answer.show {
   display: block; /* Tampilkan default yang pertama */
+  opacity: 1;
+}
+
+/* Animated accordion (height transition handled in JS) */
+.faq-answer.animating {
+  display: block;
 }
 
 /* === 9. FOOTER (CSS GRID) === */
@@ -620,113 +681,4 @@ img {
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding: 15px 0;
   text-align: center;
-}
-
-/* === 10. MEDIA QUERIES (RESPONSIVITAS MURNI) === */
-
-/* Tablet & Mobile (Mulai dari 768px ke bawah) */
-@media (max-width: 992px) {
-  .main-container {
-    padding: 0 4vw;
-  }
-
-  /* Navigasi */
-  .nav-links,
-  .nav-actions .social-icons {
-    display: none; /* Sembunyikan link menu dan ikon sosial di mobile */
-  }
-  .hamburger {
-    display: block;
-  }
-
-  /* Hero Section */
-  .hero-content {
-    flex-direction: column;
-    text-align: center;
-  }
-  .hero-text {
-    flex-basis: 100%;
-    padding-top: 20px;
-  }
-  .hero-illustration {
-    flex-basis: 100%;
-    margin-top: 20px;
-    height: 300px; /* Diperkecil untuk mobile */
-  }
-  .card-overlay {
-    display: none; /* Sembunyikan Overlay Card di Mobile */
-  }
-
-  /* Statistik, Info, Langkah (Dari 3/4 kolom menjadi 1/2 kolom) */
-  .stats-grid,
-  .info-grid,
-  .steps-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-  .card-inner-flex {
-    flex-direction: column;
-    text-align: center;
-  }
-  .pelapor-icon-circle {
-    margin: 0 auto 10px;
-  }
-
-  /* Monitoring Section */
-  .monitoring-layout {
-    flex-direction: column;
-  }
-  .monitoring-text-content {
-    text-align: center;
-    margin-top: 30px;
-  }
-  .clean-list {
-    text-align: center;
-  }
-  .clean-list li {
-    display: inline-block;
-    margin-right: 15px;
-  }
-
-  /* Bantuan/FAQ */
-  .assistance-content {
-    flex-direction: column;
-  }
-  .assistance-illustration {
-    flex-basis: 100%;
-    order: -1; /* Pindahkan ilustrasi ke atas */
-    margin-bottom: 30px;
-  }
-  .faq-list {
-    flex-basis: 100%;
-  }
-
-  /* Footer */
-  .footer-grid {
-    grid-template-columns: repeat(2, 1fr);
-    text-align: center;
-  }
-  .social-footer {
-    order: 4;
-    text-align: center;
-  }
-}
-
-/* Ponsel Kecil (Di bawah 576px) */
-@media (max-width: 576px) {
-  .main-title {
-    font-size: 2.5rem;
-  }
-  .stats-grid,
-  .info-grid,
-  .steps-grid,
-  .footer-grid {
-    grid-template-columns: 1fr; /* Satu kolom penuh */
-  }
-  .tab-nav {
-    flex-wrap: wrap;
-  }
-  .tab-nav .btn {
-    flex: 1 1 45%;
-  }
 }

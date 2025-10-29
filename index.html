@@ -10,11 +10,11 @@
 <body>
 
             <!-- NAVBAR START -->
-<nav class="navbar header-bg fixed-top">
+<nav class="navbar header-bg fixed-top" role="navigation" aria-label="Navigasi Utama">
     <div class="main-container nav-content">
         <a class="logo" href="#">Sigap</a>
         
-        <div class="nav-links">
+        <div class="nav-links" id="primary-navigation">
             <a class="nav-item" href="#">ABOUT</a>
             <a class="nav-item" href="#caraLapor">CARA LAPOR</a>
             <a class="nav-item" href="#kapanLapor">KAPAN HARUS LAPOR?</a>
@@ -28,16 +28,16 @@
             </div>
         </div>
         
-        <button class="hamburger" aria-label="Toggle navigation">&#9776;</button>
+        <button class="hamburger" aria-label="Buka menu" aria-controls="primary-navigation" aria-expanded="false">&#9776;</button>
     </div>
 </nav>
             <!-- NAVBAR END -->
 
             <!-- HERO START -->
 <header class="header-bg hero-section">
-    <div class="main-container hero-content">
+    <div class="main-container hero-content reveal" data-reveal>
         
-        <div class="hero-text">
+        <div class="hero-text reveal" data-reveal>
             <h1 class="main-title">Satgas PPKS</h1>
             <p class="description">
                 Satgas PPKS Telkom University Surabaya adalah lembaga kampus yang memastikan terciptanya lingkungan akademik yang aman, setara, dan bebas dari kekerasan seksual, sesuai dengan Permendikbudristek No. 30 Tahun 2021.
@@ -47,7 +47,7 @@
             </button>
         </div>
         
-        <div class="hero-illustration">
+        <div class="hero-illustration reveal" data-reveal>
             <div class="box-blue"><img src="" alt="Gambar Ilustrasi"></div>  
             <div>
                 
@@ -76,37 +76,37 @@
         <h2 class="section-title text-center">Jumlah Pelapor</h2>
         <div class="stats-grid">
             
-            <div class="card card-pelapor card-blue-light">
+            <div class="card card-pelapor card-blue-light reveal" data-reveal>
                 <div class="card-inner-flex">
                     <div class="pelapor-icon-circle bg-white">
                         <i class="fas fa-users"></i>
                     </div>
                     <div class="text-content">
-                        <h3 class="stat-number">6.239</h3>
+                        <h3 class="stat-number" aria-live="polite">6.239</h3>
                         <p class="stat-label">Jumlah Korban Berani Bicara</p>
                     </div>
                 </div>
             </div>
             
-            <div class="card card-pelapor card-green-teal">
+            <div class="card card-pelapor card-green-teal reveal" data-reveal>
                 <div class="card-inner-flex">
                     <div class="pelapor-icon-circle bg-white">
                         <i class="fas fa-hand-holding-heart"></i>
                     </div>
                     <div class="text-content">
-                        <h3 class="stat-number">120</h3>
+                        <h3 class="stat-number" aria-live="polite">120</h3>
                         <p class="stat-label">Pelaporan Diterima</p>
                     </div>
                 </div>
             </div>
             
-            <div class="card card-pelapor card-purple-dark">
+            <div class="card card-pelapor card-purple-dark reveal" data-reveal>
                 <div class="card-inner-flex">
                     <div class="pelapor-icon-circle bg-white">
                         <i class="fas fa-shield-alt"></i>
                     </div>
                     <div class="text-content">
-                        <h3 class="stat-number">390</h3>
+                        <h3 class="stat-number" aria-live="polite">390</h3>
                         <p class="stat-label">Korban dalam Perlindungan</p>
                     </div>
                 </div>
@@ -120,29 +120,29 @@
     <div class="main-container">
         <h2 class="section-title text-center" id="caraLapor">Cara Lapor</h2>
         
-        <div class="tab-nav">
-            <button class="btn btn-tab">LAPOR DARING</button>
-            <button class="btn btn-tab">LAPOR LANGSUNG</button>
-            <button class="btn btn-tab">LANGKAH PENTING</button>
+        <div class="tab-nav" role="tablist" aria-label="Cara Lapor">
+            <button class="btn btn-tab" role="tab" aria-selected="true">LAPOR DARING</button>
+            <button class="btn btn-tab" role="tab" aria-selected="false">LAPOR LANGSUNG</button>
+            <button class="btn btn-tab" role="tab" aria-selected="false">LANGKAH PENTING</button>
         </div>
 
         <div class="steps-grid">
-            <div class="card card-lapor">
+            <div class="card card-lapor reveal" data-reveal>
                 <i class="fas fa-file-alt icon-primary"></i>
                 <p class="step-number">Langkah 1</p>
                 <p>Isi formulir online yang telah disediakan.</p>
             </div>
-            <div class="card card-lapor">
+            <div class="card card-lapor reveal" data-reveal>
                 <i class="fas fa-upload icon-primary"></i>
                 <p class="step-number">Langkah 2</p>
                 <p>Unggah bukti atau informasi pendukung.</p>
             </div>
-            <div class="card card-lapor">
+            <div class="card card-lapor reveal" data-reveal>
                 <i class="fas fa-check-circle icon-primary"></i>
                 <p class="step-number">Langkah 3</p>
                 <p>Terima kode pelaporan unik Anda.</p>
             </div>
-            <div class="card card-lapor">
+            <div class="card card-lapor reveal" data-reveal>
                 <i class="fas fa-hourglass-half icon-primary"></i>
                 <p class="step-number">Langkah 4</p>
                 <p>Tunggu proses verifikasi dan tindak lanjut.</p>
@@ -160,7 +160,7 @@
         <h2 class="section-title text-center text-white" id="kapanLapor">Kapan Harus Lapor?</h2>
         <div class="info-grid">
             
-            <div class="card card-info">
+            <div class="card card-info reveal" data-reveal>
                 <img src="https://via.placeholder.com/400x200.png?text=Ilustrasi+A" alt="Kondisi A">
                 <div class="card-body">
                     <h5 class="card-title">Kekerasan Verbal</h5>
@@ -169,7 +169,7 @@
                 </div>
             </div>
             
-            <div class="card card-info">
+            <div class="card card-info reveal" data-reveal>
                 <img src="https://via.placeholder.com/400x200.png?text=Ilustrasi+B" alt="Kondisi B">
                 <div class="card-body">
                     <h5 class="card-title">Kekerasan Fisik</h5>
@@ -178,7 +178,7 @@
                 </div>
             </div>
             
-            <div class="card card-info">
+            <div class="card card-info reveal" data-reveal>
                 <img src="https://via.placeholder.com/400x200.png?text=Ilustrasi+C" alt="Kondisi C">
                 <div class="card-body">
                     <h5 class="card-title">Kekerasan Digital</h5>
@@ -195,7 +195,7 @@
     <div class="main-container monitoring-layout">
         
         <div class="monitoring-form-wrapper">
-            <div class="card card-monitoring">
+            <div class="card card-monitoring reveal" data-reveal>
                 <div class="icon-large">🔍</div>
                 <h5 class="fw-bold">Lacak Laporan Anda</h5>
                 <p class="text-muted">Masukkan kode pelaporan Anda untuk memonitor perkembangan kasus.</p>
@@ -204,11 +204,11 @@
                     <input type="text" placeholder="Kode Laporan" id="kodeLaporan">
                     <button class="btn btn-primary" type="button" id="checkProgressBtn">Cek Progress</button>
                 </div>
-                <div id="progressStatus" class="mt-20"></div>
+                <div id="progressStatus" class="mt-20" aria-live="polite"></div>
             </div>
         </div>
 
-        <div class="monitoring-text-content">
+        <div class="monitoring-text-content reveal" data-reveal>
             <h2 class="main-title">Monitoring Progress Laporan</h2>
             <h3>Proses Terjamin Aman</h3>
             <p>Kami menjamin kerahasiaan dan keamanan data pelapor. Sistem monitoring ini dirancang untuk memberikan transparansi tahapan proses tanpa mengungkapkan detail sensitif.</p>
@@ -229,25 +229,25 @@
         <h2 class="section-title text-center">Butuh Bantuan?</h2>
         
         <div class="assistance-content">
-            <div class="assistance-illustration">
+            <div class="assistance-illustration reveal" data-reveal>
                 <img src="https://via.placeholder.com/300x300.png?text=Ilustrasi+Help" alt="Ilustrasi Bantuan">
             </div>
-            <div class="faq-list">
+            <div class="faq-list reveal" data-reveal>
                 <div class="faq-item">
-                    <button class="faq-button">Apa itu Satgas PPKS?</button>
-                    <div class="faq-answer show">
+                    <button class="faq-button" aria-expanded="true" aria-controls="faq-1">Apa itu Satgas PPKS?</button>
+                    <div class="faq-answer show" id="faq-1" role="region">
                         Satgas PPKS (Pencegahan dan Penanganan Kekerasan Seksual) adalah unit di kampus yang bertugas mencegah, menangani, dan memulihkan korban kekerasan seksual.
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-button">Siapa yang bisa melapor?</button>
-                    <div class="faq-answer">
+                    <button class="faq-button" aria-expanded="false" aria-controls="faq-2">Siapa yang bisa melapor?</button>
+                    <div class="faq-answer" id="faq-2" role="region">
                         Semua anggota komunitas kampus (mahasiswa, dosen, tendik) yang menjadi korban, saksi, atau mengetahui adanya kasus.
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-button">Apakah identitas pelapor dirahasiakan?</button>
-                    <div class="faq-answer">
+                    <button class="faq-button" aria-expanded="false" aria-controls="faq-3">Apakah identitas pelapor dirahasiakan?</button>
+                    <div class="faq-answer" id="faq-3" role="region">
                         Ya, kami menjamin kerahasiaan identitas pelapor dan korban sesuai prosedur.
                     </div>
                 </div>
@@ -300,7 +300,7 @@
     </div>
 </footer>
 
-<script src="index.js"></script>
+<script src="index.js" defer></script>
 <script src="https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js" defer></script>
 
 </body>
