@@ -3,8 +3,8 @@
 // TTS Widget muncul DI ATAS button TTS
 // ============================================
 
-(function() {
-  'use strict';
+(function () {
+  "use strict";
 
   let fabExpanded = false;
   let ttsWidgetOpen = false;
@@ -13,9 +13,9 @@
   // CREATE FAB BUTTON STRUCTURE
   // ============================================
   function createFABButton() {
-    const fabContainer = document.createElement('div');
-    fabContainer.id = 'fab-sigap-container';
-    fabContainer.className = 'fab-sigap-container';
+    const fabContainer = document.createElement("div");
+    fabContainer.id = "fab-sigap-container";
+    fabContainer.className = "fab-sigap-container";
     fabContainer.innerHTML = `
       <!-- Main FAB Button -->
       <button class="fab-main" id="fab-main-btn" aria-label="Buka Menu Bantuan" aria-expanded="false">
@@ -68,20 +68,20 @@
   // ============================================
   function toggleFAB() {
     fabExpanded = !fabExpanded;
-    const mainBtn = document.getElementById('fab-main-btn');
-    const menu = document.getElementById('fab-menu');
-    
+    const mainBtn = document.getElementById("fab-main-btn");
+    const menu = document.getElementById("fab-menu");
+
     if (fabExpanded) {
-      mainBtn.classList.add('fab-expanded');
-      mainBtn.setAttribute('aria-expanded', 'true');
-      menu.classList.add('fab-menu-open');
-      menu.setAttribute('aria-hidden', 'false');
+      mainBtn.classList.add("fab-expanded");
+      mainBtn.setAttribute("aria-expanded", "true");
+      menu.classList.add("fab-menu-open");
+      menu.setAttribute("aria-hidden", "false");
     } else {
-      mainBtn.classList.remove('fab-expanded');
-      mainBtn.setAttribute('aria-expanded', 'false');
-      menu.classList.remove('fab-menu-open');
-      menu.setAttribute('aria-hidden', 'true');
-      
+      mainBtn.classList.remove("fab-expanded");
+      mainBtn.setAttribute("aria-expanded", "false");
+      menu.classList.remove("fab-menu-open");
+      menu.setAttribute("aria-hidden", "true");
+
       // Close TTS widget if open (but TTS stays active)
       if (ttsWidgetOpen) {
         closeTTSWidget(false); // false = don't turn off TTS
@@ -94,26 +94,26 @@
   // ============================================
   function openTTSWidget(event) {
     event.stopPropagation();
-    
-    const widget = document.getElementById('fab-tts-widget');
-    const menu = document.getElementById('fab-menu');
-    
+
+    const widget = document.getElementById("fab-tts-widget");
+    const menu = document.getElementById("fab-menu");
+
     ttsWidgetOpen = true;
-    widget.classList.add('show');
-    menu.classList.add('tts-widget-open');
-    
-    console.log('✅ TTS Widget Opened');
+    widget.classList.add("show");
+    menu.classList.add("tts-widget-open");
+
+    console.log("✅ TTS Widget Opened");
   }
 
   function closeTTSWidget(turnOffTTS = true) {
-    const widget = document.getElementById('fab-tts-widget');
-    const menu = document.getElementById('fab-menu');
-    const ttsSwitch = document.getElementById('fab-tts-switch');
-    
+    const widget = document.getElementById("fab-tts-widget");
+    const menu = document.getElementById("fab-menu");
+    const ttsSwitch = document.getElementById("fab-tts-switch");
+
     ttsWidgetOpen = false;
-    widget.classList.remove('show');
-    menu.classList.remove('tts-widget-open');
-    
+    widget.classList.remove("show");
+    menu.classList.remove("tts-widget-open");
+
     // Only turn off TTS if explicitly requested
     if (turnOffTTS && ttsSwitch && ttsSwitch.checked) {
       ttsSwitch.checked = false;
@@ -121,8 +121,10 @@
         window.TTSModule.deactivate();
       }
     }
-    
-    console.log(`⏹️ TTS Widget Closed (TTS ${turnOffTTS ? 'OFF' : 'stays ON'})`);
+
+    console.log(
+      `⏹️ TTS Widget Closed (TTS ${turnOffTTS ? "OFF" : "stays ON"})`
+    );
   }
 
   // ============================================
@@ -130,27 +132,35 @@
   // ============================================
   function handleFeatureClick(feature, event) {
     console.log(`Feature clicked: ${feature}`);
-    
-    switch(feature) {
-      case 'qna':
+
+    switch (feature) {
+      case "qna":
         if (window.QnAModule && window.QnAModule.open) {
           window.QnAModule.open();
         } else {
-          alert('Fitur QnA Mental Health akan segera hadir!');
+          alert("Fitur QnA Mental Health akan segera hadir!");
         }
         toggleFAB();
         break;
-        
-      case 'chatbot':
+
+      case "chatbot":
+        // ⭐ GANTI bagian ini:
+        // BEFORE:
+        // alert('Chatbot coming soon!');
+
+        // AFTER:
         if (window.TemanKuChatbot && window.TemanKuChatbot.open) {
           window.TemanKuChatbot.open();
         } else {
-          alert('Fitur TemanKu Chatbot akan segera hadir!');
+          console.error("TemanKu Chatbot not loaded");
+          alert(
+            "Chatbot belum siap. Pastikan file temanku_chatbot.js sudah di-load."
+          );
         }
-        toggleFAB();
+        toggleFAB(); // Close FAB when chatbot opens
         break;
-        
-      case 'tts':
+
+      case "tts":
         // Toggle TTS widget (don't close FAB)
         event.stopPropagation();
         if (ttsWidgetOpen) {
@@ -159,9 +169,9 @@
           openTTSWidget(event);
         }
         break;
-        
+
       default:
-        console.warn('Unknown feature:', feature);
+        console.warn("Unknown feature:", feature);
     }
   }
 
@@ -169,27 +179,27 @@
   // INIT TTS CONTROLS
   // ============================================
   function initTTSControls() {
-    const ttsSwitch = document.getElementById('fab-tts-switch');
-    const speedSlider = document.getElementById('fab-tts-speed-slider');
-    const speedValue = document.getElementById('fab-tts-speed-value');
+    const ttsSwitch = document.getElementById("fab-tts-switch");
+    const speedSlider = document.getElementById("fab-tts-speed-slider");
+    const speedValue = document.getElementById("fab-tts-speed-value");
 
     if (!ttsSwitch || !speedSlider || !speedValue) {
-      console.warn('TTS controls not found');
+      console.warn("TTS controls not found");
       return;
     }
 
     // Toggle TTS on/off
-    ttsSwitch.addEventListener('change', function() {
+    ttsSwitch.addEventListener("change", function () {
       const isActive = this.checked;
-      
+
       if (window.TTSModule) {
         if (isActive) {
           window.TTSModule.activate();
-          console.log('🔊 TTS Hover Mode Activated');
+          console.log("🔊 TTS Hover Mode Activated");
         } else {
           window.TTSModule.deactivate();
-          console.log('🔇 TTS Hover Mode Deactivated');
-          
+          console.log("🔇 TTS Hover Mode Deactivated");
+
           // Auto-close widget when manually turned off
           setTimeout(() => {
             closeTTSWidget(false); // Widget closes but TTS already off
@@ -199,47 +209,47 @@
     });
 
     // Speed control
-    speedSlider.addEventListener('input', function() {
+    speedSlider.addEventListener("input", function () {
       const speed = parseFloat(this.value);
-      speedValue.textContent = speed.toFixed(1) + 'x';
-      
+      speedValue.textContent = speed.toFixed(1) + "x";
+
       if (window.TTSModule && window.TTSModule.setSpeed) {
         window.TTSModule.setSpeed(speed);
       }
     });
 
-    console.log('✅ TTS Controls Initialized');
+    console.log("✅ TTS Controls Initialized");
   }
 
   // ============================================
   // INIT EVENT LISTENERS
   // ============================================
   function initEventListeners() {
-    const mainBtn = document.getElementById('fab-main-btn');
-    const fabItems = document.querySelectorAll('.fab-item');
-    const ttsWidget = document.getElementById('fab-tts-widget');
+    const mainBtn = document.getElementById("fab-main-btn");
+    const fabItems = document.querySelectorAll(".fab-item");
+    const ttsWidget = document.getElementById("fab-tts-widget");
 
     // Main button toggle
-    mainBtn.addEventListener('click', toggleFAB);
+    mainBtn.addEventListener("click", toggleFAB);
 
     // Feature buttons
-    fabItems.forEach(item => {
-      item.addEventListener('click', (event) => {
-        const feature = item.getAttribute('data-feature');
+    fabItems.forEach((item) => {
+      item.addEventListener("click", (event) => {
+        const feature = item.getAttribute("data-feature");
         handleFeatureClick(feature, event);
       });
     });
 
     // Prevent widget clicks from bubbling
     if (ttsWidget) {
-      ttsWidget.addEventListener('click', (e) => {
+      ttsWidget.addEventListener("click", (e) => {
         e.stopPropagation();
       });
     }
 
     // Close on ESC key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
         if (ttsWidgetOpen) {
           closeTTSWidget();
         } else if (fabExpanded) {
@@ -249,8 +259,8 @@
     });
 
     // Close when clicking outside
-    document.addEventListener('click', (e) => {
-      const container = document.getElementById('fab-sigap-container');
+    document.addEventListener("click", (e) => {
+      const container = document.getElementById("fab-sigap-container");
       if (fabExpanded && !container.contains(e.target)) {
         toggleFAB();
       }
@@ -264,16 +274,16 @@
   // INITIALIZATION
   // ============================================
   function init() {
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', () => {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", () => {
         createFABButton();
         initEventListeners();
-        console.log('✅ FAB Sigap Initialized');
+        console.log("✅ FAB Sigap Initialized");
       });
     } else {
       createFABButton();
       initEventListeners();
-      console.log('✅ FAB Sigap Initialized');
+      console.log("✅ FAB Sigap Initialized");
     }
   }
 
@@ -286,7 +296,6 @@
     openTTSWidget: openTTSWidget,
     closeTTSWidget: closeTTSWidget,
     isExpanded: () => fabExpanded,
-    isTTSWidgetOpen: () => ttsWidgetOpen
+    isTTSWidgetOpen: () => ttsWidgetOpen,
   };
-
 })();

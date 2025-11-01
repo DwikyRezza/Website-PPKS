@@ -1,0 +1,716 @@
+/* ============================================
+   TEMANKU CHATBOT - COMPLETE STYLES
+   Mental Health Support Chatbot UI
+   ============================================ */
+
+:root {
+  --chat-primary: #2F80ED;
+  --chat-primary-dark: #1e5bb8;
+  --chat-secondary: #56CCF2;
+  --chat-accent: #4ECDC4;
+  --chat-danger: #FF6B6B;
+  --chat-success: #51CF66;
+  --chat-bg: #FFFFFF;
+  --chat-gray: #F5F5F5;
+  --chat-text: #2C3E50;
+  --chat-text-light: #7F8C8D;
+}
+
+/* ============================================
+   MODAL CONTAINER
+   ============================================ */
+.temanku-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* ============================================
+   WELCOME SCREEN
+   ============================================ */
+.temanku-welcome {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.temanku-welcome-content {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 24px;
+  padding: 48px 40px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Animated gradient border */
+.temanku-welcome-content::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: 24px;
+  background: linear-gradient(45deg, 
+    var(--chat-primary), 
+    var(--chat-secondary), 
+    var(--chat-accent),
+    var(--chat-primary)
+  );
+  background-size: 300% 300%;
+  z-index: -1;
+  animation: gradientRotate 4s ease infinite;
+}
+
+@keyframes gradientRotate {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+/* Wave animation */
+.temanku-wave-animation {
+  font-size: 80px;
+  margin-bottom: 24px;
+  animation: wave 1.5s ease-in-out infinite;
+  display: inline-block;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes wave {
+  0%, 100% {
+    transform: rotate(0deg);
+  }
+  10%, 30% {
+    transform: rotate(14deg);
+  }
+  20%, 40% {
+    transform: rotate(-8deg);
+  }
+  50% {
+    transform: rotate(14deg);
+  }
+  60% {
+    transform: rotate(-4deg);
+  }
+  70% {
+    transform: rotate(10deg);
+  }
+  80% {
+    transform: rotate(0deg);
+  }
+}
+
+.temanku-welcome-content h2 {
+  font-size: 32px;
+  font-weight: 700;
+  color: var(--chat-text);
+  margin-bottom: 16px;
+  background: linear-gradient(135deg, var(--chat-primary), var(--chat-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.temanku-welcome-content p {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 8px;
+  line-height: 1.6;
+}
+
+.temanku-subtitle {
+  font-size: 14px !important;
+  color: var(--chat-text-light) !important;
+  margin-bottom: 32px !important;
+}
+
+.temanku-welcome-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.temanku-welcome-buttons .btn {
+  padding: 14px 32px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: none;
+  cursor: pointer;
+}
+
+.temanku-welcome-buttons .btn-primary {
+  background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-secondary) 100%);
+  color: white;
+  box-shadow: 0 4px 12px rgba(47, 128, 237, 0.3);
+}
+
+.temanku-welcome-buttons .btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(47, 128, 237, 0.4);
+}
+
+.temanku-welcome-buttons .btn-primary:active {
+  transform: translateY(0);
+}
+
+.temanku-welcome-buttons .btn-outline-secondary {
+  background: transparent;
+  color: var(--chat-text-light);
+  border: 2px solid #ddd;
+}
+
+.temanku-welcome-buttons .btn-outline-secondary:hover {
+  background: #f8f9fa;
+  border-color: #ccc;
+}
+
+/* ============================================
+   CHAT INTERFACE
+   ============================================ */
+.temanku-chat {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 600px;
+  height: 80vh;
+  max-height: 700px;
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  animation: slideUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ============================================
+   HEADER
+   ============================================ */
+.temanku-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 24px;
+  background: linear-gradient(135deg, var(--chat-primary) 0%, var(--chat-secondary) 100%);
+  color: white;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.temanku-header-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.temanku-avatar {
+  width: 44px;
+  height: 44px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.temanku-header-text h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.temanku-status {
+  font-size: 12px;
+  opacity: 0.9;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.temanku-status::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: #51CF66;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.temanku-close-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.temanku-close-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+/* ============================================
+   MESSAGES CONTAINER
+   ============================================ */
+.temanku-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Custom scrollbar */
+.temanku-messages::-webkit-scrollbar {
+  width: 6px;
+}
+
+.temanku-messages::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.temanku-messages::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+.temanku-messages::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
+}
+
+/* ============================================
+   MESSAGE BUBBLES
+   ============================================ */
+.temanku-message {
+  display: flex;
+  animation: messageSlideIn 0.3s ease;
+}
+
+@keyframes messageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.temanku-message-content {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 75%;
+}
+
+.temanku-message-bot .temanku-message-content {
+  flex-direction: row;
+}
+
+.temanku-message-user {
+  justify-content: flex-end;
+}
+
+.temanku-message-user .temanku-message-content {
+  flex-direction: row-reverse;
+}
+
+.temanku-message-avatar {
+  width: 32px;
+  height: 32px;
+  background: linear-gradient(135deg, var(--chat-primary), var(--chat-secondary));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.temanku-message-user .temanku-message-avatar {
+  background: linear-gradient(135deg, #6C5CE7, #A29BFE);
+}
+
+.temanku-message-bubble {
+  background: white;
+  padding: 12px 16px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.temanku-message-bot .temanku-message-bubble {
+  border-bottom-left-radius: 4px;
+}
+
+.temanku-message-user .temanku-message-bubble {
+  background: linear-gradient(135deg, var(--chat-primary), var(--chat-secondary));
+  color: white;
+  border-bottom-right-radius: 4px;
+}
+
+.temanku-message-bubble p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.temanku-message-time {
+  font-size: 11px;
+  opacity: 0.6;
+  display: block;
+  margin-top: 4px;
+}
+
+/* ============================================
+   TYPING INDICATOR
+   ============================================ */
+.temanku-typing {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px 12px;
+  background: #f8f9fa;
+}
+
+.temanku-typing-dots {
+  display: flex;
+  gap: 4px;
+  background: white;
+  padding: 10px 16px;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.temanku-typing-dots span {
+  width: 8px;
+  height: 8px;
+  background: var(--chat-primary);
+  border-radius: 50%;
+  animation: typingBounce 1.4s ease-in-out infinite;
+}
+
+.temanku-typing-dots span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.temanku-typing-dots span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typingBounce {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-8px);
+  }
+}
+
+.temanku-typing-text {
+  font-size: 12px;
+  color: var(--chat-text-light);
+}
+
+/* ============================================
+   INPUT AREA
+   ============================================ */
+.temanku-input-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+}
+
+.temanku-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 24px;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.temanku-input:focus {
+  border-color: var(--chat-primary);
+  box-shadow: 0 0 0 3px rgba(47, 128, 237, 0.1);
+}
+
+.temanku-send-btn {
+  width: 44px;
+  height: 44px;
+  border: none;
+  background: linear-gradient(135deg, var(--chat-primary), var(--chat-secondary));
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.temanku-send-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(47, 128, 237, 0.4);
+}
+
+.temanku-send-btn:active {
+  transform: scale(0.95);
+}
+
+/* ============================================
+   INTERVENTION OPTIONS
+   ============================================ */
+.temanku-intervention-options,
+.temanku-crisis-contacts {
+  width: 100%;
+}
+
+.temanku-options-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.temanku-options-buttons .btn {
+  padding: 10px 16px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.temanku-options-buttons .btn-primary {
+  background: linear-gradient(135deg, var(--chat-primary), var(--chat-secondary));
+  color: white;
+}
+
+.temanku-options-buttons .btn-secondary {
+  background: var(--chat-accent);
+  color: white;
+}
+
+.temanku-options-buttons .btn-outline-secondary {
+  background: white;
+  color: var(--chat-text);
+  border: 2px solid #e0e0e0;
+}
+
+.temanku-options-buttons .btn:hover {
+  transform: translateX(4px);
+}
+
+.btn-block {
+  width: 100%;
+}
+
+/* ============================================
+   CRISIS CONTACTS
+   ============================================ */
+.temanku-contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.temanku-contact-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  border-left: 4px solid var(--chat-primary);
+}
+
+.temanku-contact-item i {
+  font-size: 20px;
+  color: var(--chat-primary);
+  width: 24px;
+  text-align: center;
+}
+
+.temanku-contact-item strong {
+  display: block;
+  font-size: 14px;
+  color: var(--chat-text);
+  margin-bottom: 2px;
+}
+
+.temanku-contact-item a {
+  color: var(--chat-primary);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.temanku-contact-item a:hover {
+  text-decoration: underline;
+}
+
+.temanku-note {
+  margin-top: 12px;
+  padding: 12px;
+  background: #FFF3CD;
+  border-left: 4px solid #FFC107;
+  border-radius: 4px;
+  font-size: 13px;
+  color: #856404;
+}
+
+/* ============================================
+   RESPONSIVE - MOBILE
+   ============================================ */
+@media (max-width: 768px) {
+  .temanku-chat {
+    max-width: 100%;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+  }
+
+  .temanku-welcome-content {
+    padding: 32px 24px;
+  }
+
+  .temanku-wave-animation {
+    font-size: 60px;
+  }
+
+  .temanku-welcome-content h2 {
+    font-size: 26px;
+  }
+
+  .temanku-welcome-content p {
+    font-size: 16px;
+  }
+
+  .temanku-messages {
+    padding: 16px;
+  }
+
+  .temanku-message-content {
+    max-width: 85%;
+  }
+
+  .temanku-input-container {
+    padding: 12px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .temanku-welcome-content {
+    padding: 24px 20px;
+    border-radius: 16px;
+  }
+
+  .temanku-wave-animation {
+    font-size: 50px;
+  }
+
+  .temanku-welcome-content h2 {
+    font-size: 22px;
+  }
+
+  .temanku-header {
+    padding: 16px 20px;
+  }
+
+  .temanku-header-text h3 {
+    font-size: 16px;
+  }
+
+  .temanku-message-bubble p {
+    font-size: 14px;
+  }
+}
+
+/* ============================================
+   ANIMATIONS - REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ============================================
+   PRINT - HIDE CHATBOT
+   ============================================ */
+@media print {
+  .temanku-modal {
+    display: none !important;
+  }
+}
