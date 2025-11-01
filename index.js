@@ -1,11 +1,8 @@
 // ============================================
-// MAIN WEBSITE INTERACTIONS
-// - Smooth scroll, navbar scrolled
-// - Reveal on scroll (staggered), counters
-// - Mobile menu with transition + body scroll lock
-// - Tabs, Accordion (ARIA + animated height)
-// - Loading state empatik
-// - Optional subtle parallax
+// DOKUMENTASI UMUM INDEX.JS
+// File ini menangani interaksi utama situs, termasuk smooth scroll, navbar scroll, reveal on scroll, mobile menu, tabs, accordion, loading state, dan parallax.
+// Semua fitur dibungkus dalam IIFE untuk menghindari polusi global scope.
+// Responsivitas dipertimbangkan dengan prefers-reduced-motion untuk mengurangi animasi pada user yang sensitif.
 // ============================================
 
 (function () {
@@ -15,6 +12,7 @@
 
   // ============================================
   // SMOOTH SCROLL FOR INTERNAL ANCHORS
+  // Dokumentasi: Menangani klik pada anchor internal (#id) untuk smooth scroll, dengan fallback ke auto jika reduced motion aktif. Juga fokus elemen target untuk aksesibilitas.
   // ============================================
   document.addEventListener('click', function (e) {
     const target = e.target.closest('a[href^="#"]');
@@ -33,6 +31,7 @@
 
   // ============================================
   // NAVBAR TRANSPARENCY ON SCROLL
+  // Dokumentasi: Menambahkan class 'scrolled' pada navbar saat window scroll > 8px untuk efek transparansi, menggunakan passive listener untuk performance.
   // ============================================
   const navbar = document.querySelector('.navbar');
   const updateNav = () => {
@@ -45,6 +44,7 @@
 
   // ============================================
   // REVEAL ON SCROLL AND COUNTERS
+  // Dokumentasi: Menggunakan IntersectionObserver untuk reveal elemen saat masuk viewport, dengan stagger delay untuk grup. Juga animasi count-up untuk statistik menggunakan easing cubic.
   // ============================================
   const revealEls = Array.from(document.querySelectorAll('[data-reveal]'));
   const statEls = Array.from(document.querySelectorAll('.stat-number'));
@@ -101,6 +101,7 @@
 
   // ============================================
   // MOBILE MENU
+  // Dokumentasi: Menangani toggle menu mobile dengan hamburger button, lock body scroll saat open, dan fokus pertama item saat dibuka. Tutup dengan Escape atau klik item.
   // ============================================
   const hamburger = document.querySelector('.hamburger');
   const primaryNav = document.getElementById('primary-navigation');
@@ -128,6 +129,7 @@
 
   // ============================================
   // TABS
+  // Dokumentasi: Menangani tab navigasi dengan ARIA attributes, switch active tab on click, dan navigasi keyboard (ArrowLeft/Right).
   // ============================================
   const tabList = document.querySelector('.tab-nav');
   if (tabList) {
@@ -151,6 +153,7 @@
 
   // ============================================
   // ACCORDION / FAQ
+  // Dokumentasi: Accordion dengan animasi height menggunakan requestAnimationFrame, ARIA attributes, dan navigasi keyboard (Enter/Space untuk toggle, ArrowUp/Down untuk nav). Hanya satu open sekaligus.
   // ============================================
   const faqButtons = Array.from(document.querySelectorAll('.faq-button'));
   const getAnswer = (btn) => btn.nextElementSibling;
@@ -199,6 +202,7 @@
 
   // ============================================
   // LOADING STATE FOR MONITORING
+  // Dokumentasi: Menangani tombol cek progress dengan validasi input, tampilkan spinner loading, dan simulasikan respons berdasarkan kode (hardcoded untuk demo).
   // ============================================
   const checkBtn = document.getElementById('checkProgressBtn');
   const progressStatusDiv = document.getElementById('progressStatus');
@@ -238,6 +242,7 @@
 
   // ============================================
   // SUBTLE PARALLAX
+  // Dokumentasi: Efek parallax sederhana pada elemen .box-blue saat scroll, dinonaktifkan jika reduced motion.
   // ============================================
   const boxBlue = document.querySelector('.box-blue');
   if (boxBlue && !prefersReduced) {

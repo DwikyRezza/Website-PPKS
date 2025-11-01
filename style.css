@@ -1,4 +1,12 @@
+/* ============================================
+   DOKUMENTASI UMUM STYLE.CSS
+   File ini berisi styling untuk situs Satgas PPKS, termasuk variabel warna, reset dasar, typography, utilities, dan styling per section. 
+   Responsivitas ditangani melalui media queries, dengan breakpoint utama di 1015px untuk navbar, 769px untuk card overlay, dan lebih kecil untuk mobile.
+   Fitur utama: Smooth transitions, reveal on scroll, dan hover effects untuk user experience yang calm.
+   ============================================ */
+
 /* === 1. VARIABEL & RESET DASAR === */
+/* Dokumentasi: Definisi variabel root untuk warna, padding, dan animasi timing. Reset dasar untuk elemen umum agar konsisten cross-browser. */
 :root {
   --color-dark-blue: #132338;
   --color-mid-blue: #547e9b;
@@ -59,6 +67,7 @@ img {
 }
 
 /* === 2. TYPOGRAPHY & UTILITIES === */
+/* Dokumentasi: Styling untuk teks utama, deskripsi, dan utilities seperti margin, tombol, dan ikon. Termasuk micro-interactions untuk hover. */
 .main-title {
   font-size: 3.5rem;
   font-weight: 800;
@@ -171,6 +180,7 @@ img {
 }
 
 /* === 3. HEADER & NAVIGASI (FLEXBOX) === */
+/* Dokumentasi: Styling navbar dengan background gradient, transparansi on scroll, dan mode responsive menggunakan hamburger menu. */
 .asw-footer a {
   display: none !important;
 }
@@ -251,6 +261,7 @@ img {
 }
 
 /* === HERO SECTION (FLEXBOX) === */
+/* Dokumentasi: Hero section dengan flexbox untuk alignment, ilustrasi dengan positioning absolut, dan animasi floating untuk ikon. */
 .hero-section {
   padding-top: 120px;
   min-height: 80vh;
@@ -370,6 +381,7 @@ img {
 }
 
 /* === 4. STATISTIK (CSS GRID) === */
+/* Dokumentasi: Grid untuk statistik dengan card berwarna, ikon, dan animasi count-up. */
 .stats-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -434,6 +446,7 @@ img {
 }
 
 /* === Reveal on Scroll (calm fade-in) === */
+/* Dokumentasi: Efek reveal menggunakan IntersectionObserver untuk animasi masuk elemen saat scroll. */
 .reveal {
   opacity: 0;
   transform: translateY(16px);
@@ -446,6 +459,7 @@ img {
 }
 
 /* === 5. CARA LAPOR (FLEX & GRID) === */
+/* Dokumentasi: Section dengan tab navigasi (ARIA-enabled) dan grid langkah-langkah untuk panduan lapor. */
 .section-yellow {
   background-color: var(--color-light-yellow);
 }
@@ -491,6 +505,7 @@ img {
 }
 
 /* === 6. KAPAN HARUS LAPOR? (GRID) === */
+/* Dokumentasi: Grid informasi dengan card berisi gambar dan deskripsi untuk jenis kekerasan. */
 .section-teal {
   background-color: var(--color-teal);
 }
@@ -527,6 +542,7 @@ img {
   margin-bottom: 20px;
 }
 /* === 7. MONITORING (FLEXBOX) === */
+/* Dokumentasi: Layout flex untuk form monitoring dan deskripsi, dengan input group responsif. */
 .section-purple {
   background-color: var(--color-dark-blue);
   color: var(--color-text-light);
@@ -585,6 +601,7 @@ img {
 }
 
 /* === 8. BANTUAN/FAQ (FLEXBOX) === */
+/* Dokumentasi: Flex layout untuk ilustrasi dan FAQ accordion dengan animasi height. */
 .section-grid {
   background-color: #f0f8ff;
 }
@@ -649,6 +666,7 @@ img {
 }
 
 /* === 9. FOOTER (CSS GRID) === */
+/* Dokumentasi: Grid footer dengan kolom untuk link dan kontak, responsif ke mobile. */
 .main-footer {
   background-color: var(--color-dark-blue);
   color: var(--color-text-light);
@@ -682,104 +700,25 @@ img {
   padding: 15px 0;
   text-align: center;
 }
-/* ============================================
-   MOBILE RESPONSIVE DESIGN - WORLD-CLASS
-   Breakpoints: 768px (tablet), 480px (mobile)
-   ============================================ */
 
 /* ============================================
-   TABLET (768px and below)
+   RESPONSIVE DESIGN
    ============================================ */
-@media (max-width: 768px) {
-  
-  /* === TYPOGRAPHY === */
-  .main-title {
-    font-size: 2.5rem;
+
+/* === BARU: Hilangkan card overlay di bawah 770px === */
+@media (max-width: 769px) {
+  .card-overlay-top,
+  .card-overlay-middle,
+  .card-overlay-bottom,
+  .card-overlay2 {
+    display: none !important;
   }
-  
-  .section-title {
-    font-size: 2rem;
-  }
-  
-  .description {
-    font-size: 1rem;
-    max-width: 100%;
-  }
-  
-  /* === NAVBAR === */
-  .navbar {
-    padding: 12px 0;
-  }
-  
-  .nav-content {
-    padding: 0 20px;
-    position: relative;
-  }
-  
-  .logo {
-    font-size: 1.6rem;
-    z-index: 1001;
-  }
-  
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 280px;
-    height: 100vh;
-    background: linear-gradient(
-      180deg,
-      var(--color-dark-blue) 0%,
-      #1a3a52 100%
-    );
-    flex-direction: column;
-    padding: 80px 20px 30px 20px;
-    gap: 0;
-    transition: right 0.4s var(--ease-calm);
-    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
-    overflow-y: auto;
-    z-index: 1000;
-  }
-  
-  .nav-links.open {
-    right: 0;
-  }
-  
-  .nav-links .nav-item {
-    padding: 16px 20px;
-    margin-bottom: 8px;
-    border-radius: 10px;
-    width: 100%;
-    text-align: left;
-    display: block;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    font-size: 0.95rem;
-    font-weight: 600;
-  }
-  
-  .nav-links .nav-item:hover,
-  .nav-links .nav-item:active {
-    background-color: rgba(255, 255, 255, 0.15);
-  }
-  
-  .nav-actions {
-    gap: 12px;
-    z-index: 1001;
-  }
-  
-  .nav-actions .btn {
-    padding: 10px 24px;
-    font-size: 0.9rem;
-    font-weight: 700;
-  }
-  
-  /* Hide social icons on tablet */
-  .nav-actions .social-icons img {
-    display: none;
-  }
-  
+}
+
+/* === BARU: Rapikan navbar di bawah 1016px (breakpoint utama untuk mode responsive) === */
+@media (max-width: 1015px) {
   .hamburger {
-    display: flex !important;
+    display: flex !important; /* Tampilkan hamburger lebih awal */
     align-items: center;
     justify-content: center;
     width: 44px;
@@ -789,15 +728,53 @@ img {
     border-radius: 8px;
     transition: background-color 0.3s ease;
   }
-  
+
   .hamburger:hover {
     background-color: rgba(255, 255, 255, 0.1);
   }
-  
+
   .hamburger:active {
     background-color: rgba(255, 255, 255, 0.2);
   }
-  
+
+  .nav-links {
+    display: none; /* Sembunyikan nav-links di desktop mode, tapi akan ditampilkan via JS untuk mobile */
+    flex-direction: column;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: rgba(19, 35, 56, 0.95);
+    width: 100%;
+    padding: 20px;
+    gap: 10px; /* Kurangi gap untuk lebih rapi */
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-links .nav-item {
+    padding: 10px 15px; /* Kurangi padding untuk compact */
+    font-size: 1rem; /* Kurangi font size */
+    border-radius: 8px;
+  }
+
+  .nav-actions {
+    gap: 10px; /* Kurangi gap untuk rapi */
+  }
+
+  .nav-actions .btn {
+    padding: 8px 16px; /* Compact button */
+    font-size: 0.95rem;
+  }
+
+  .nav-content {
+    padding: 0 16px; /* Tambah padding sisi untuk rapi */
+    gap: 10px; /* Kurangi gap keseluruhan */
+  }
+
   /* Overlay when menu open */
   body.menu-open::before {
     content: '';
@@ -810,646 +787,418 @@ img {
     z-index: 999;
     animation: fadeIn 0.3s ease;
   }
-  
+
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
   }
-  
+
   body.menu-open {
     overflow: hidden;
   }
-  
-  /* Prevent any unwanted dropdowns or tooltips */
-  .nav-links::after,
-  .nav-links::before,
-  .nav-item::after,
-  .nav-item::before {
-    display: none !important;
-  }
-  
-  /* Clean mobile navbar appearance */
+
+  /* Navbar scrolled adjustment for responsive */
   .navbar.scrolled {
     background: rgba(19, 35, 56, 0.98);
     backdrop-filter: saturate(1.4) blur(12px);
   }
-  
-  /* === HERO SECTION === */
+}
+
+/* === TABLET (768px and below) - Adjust existing for better responsiveness === */
+@media (max-width: 768px) {
+  /* Hero adjustments */
   .hero-section {
     padding-top: 100px;
     min-height: auto;
     padding-bottom: 40px;
   }
-  
+
   .hero-content {
     flex-direction: column;
     gap: 30px;
   }
-  
+
   .hero-text {
     flex-basis: 100%;
     text-align: center;
   }
-  
+
   .hero-text .btn {
     margin: 0 auto;
   }
-  
+
   .hero-illustration {
     flex-basis: 100%;
     height: 300px;
     margin-top: 20px;
   }
-  
+
   .box-blue {
     height: 280px;
     right: -30px;
   }
-  
+
   .box-teal {
     width: 80%;
     height: 240px;
   }
-  
-  .card-overlay-top,
-  .card-overlay-middle,
-  .card-overlay-bottom {
-    font-size: 0.75rem;
-    padding: 8px 12px;
-  }
-  
-  .card-overlay-top {
-    width: 45%;
-    left: -5%;
-    bottom: 240px;
-  }
-  
-  .card-overlay-middle {
-    width: 55%;
-    left: -5%;
-    bottom: 120px;
-    height: 100px;
-  }
-  
-  .card-overlay-bottom {
-    width: 55%;
-    left: -5%;
-    bottom: 40px;
-  }
+
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  
+
   .card-pelapor {
     padding: 1.5rem 1rem;
   }
-  
+
   .stat-number {
     font-size: 2.5rem;
   }
-  
+
   .pelapor-icon-circle {
     width: 50px;
     height: 50px;
     font-size: 1.2rem;
     margin-right: 15px;
   }
-  
-  /* === CARA LAPOR === */
+
   .tab-nav {
     flex-wrap: wrap;
     gap: 8px;
   }
-  
+
   .btn-tab {
     font-size: 0.85rem;
     padding: 8px 16px;
   }
-  
+
   .steps-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
   }
-  
+
   .card-lapor {
     padding: 15px;
   }
-  
+
   .icon-primary {
     font-size: 2rem;
   }
-  
-  /* === KAPAN HARUS LAPOR === */
+
   .info-grid {
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  
+
   .card-info img {
     height: 180px;
   }
-  
-  /* === MONITORING === */
+
   .monitoring-layout {
     flex-direction: column;
     gap: 30px;
   }
-  
+
   .monitoring-text-content {
     text-align: center;
   }
-  
+
   .input-group {
     flex-direction: column;
     height: auto;
     border-radius: 12px;
   }
-  
+
   .input-group input {
     padding: 12px 20px;
     border-bottom: 1px solid #ddd;
   }
-  
+
   .input-group button {
     padding: 12px 20px;
     border-radius: 0 0 12px 12px;
   }
-  
-  /* === FAQ === */
+
   .assistance-content {
     flex-direction: column;
   }
-  
+
   .assistance-illustration {
     flex-basis: 100%;
   }
-  
+
   .assistance-illustration img {
     max-width: 200px;
     margin: 0 auto;
   }
-  
+
   .faq-list {
     flex-basis: 100%;
   }
-  
-  /* === FOOTER === */
+
   .footer-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
   }
-  
-  /* === FAB SIGAP (Tablet) === */
-  .fab-sigap-container {
-    right: 20px;
-    bottom: 70px;
-  }
-  
-  .fab-main {
-    width: 56px;
-    height: 56px;
-  }
-  
-  .fab-icon {
-    font-size: 22px;
-  }
-  
-  .fab-item {
-    width: 48px;
-    height: 48px;
-  }
-  
-  .fab-item i {
-    font-size: 18px;
-  }
-  
-  .fab-label {
-    font-size: 13px;
-    padding: 6px 14px;
-  }
-  
-  .fab-tts-widget {
-    min-width: 220px;
-    padding: 14px 18px;
-  }
 }
 
-/* ============================================
-   MOBILE (480px and below)
-   ============================================ */
+/* === MOBILE (480px and below) === */
 @media (max-width: 480px) {
-  
-  /* === ROOT PADDING === */
   :root {
     --padding-x: 4vw;
   }
-  
-  /* === TYPOGRAPHY === */
+
   .main-title {
     font-size: 2rem;
     line-height: 1.2;
   }
-  
+
   .section-title {
     font-size: 1.75rem;
     margin-bottom: 2rem;
   }
-  
+
   .description {
     font-size: 0.95rem;
   }
-  
-  /* === BUTTONS === */
+
   .btn {
     padding: 10px 20px;
     font-size: 0.9rem;
   }
-  
+
   .btn-lg {
     padding: 12px 24px;
   }
-  
-  /* === NAVBAR === */
+
   .navbar {
     padding: 10px 0;
   }
-  
+
   .nav-content {
     padding: 0 16px;
+    gap: 8px;
   }
-  
+
   .logo {
     font-size: 1.4rem;
   }
-  
+
   .nav-links {
-    width: 100%;
-    right: -100%;
     padding: 70px 20px 20px 20px;
   }
-  
+
   .nav-links .nav-item {
     padding: 14px 18px;
     font-size: 0.9rem;
   }
-  
-  /* Hide button text on mobile, show icon only */
+
   .nav-actions .btn {
     padding: 10px 20px;
     font-size: 0.85rem;
     white-space: nowrap;
   }
-  
+
   .nav-actions .social-icons {
     display: none;
   }
-  
+
   .hamburger {
     width: 42px;
     height: 42px;
     font-size: 1.3rem;
   }
-  
-  /* === HERO SECTION === */
+
   .hero-section {
     padding-top: 80px;
     padding-bottom: 30px;
   }
-  
+
   .main-title {
     font-size: 1.8rem;
   }
-  
+
   .hero-illustration {
     height: 250px;
   }
-  
+
   .box-blue {
     height: 220px;
     right: -20px;
   }
-  
+
   .box-teal {
     height: 180px;
   }
-  
-  /* Hide card overlays on mobile - too cluttered */
-  .card-overlay-top,
-  .card-overlay-middle,
-  .card-overlay-bottom,
-  .card-overlay2 {
-    display: none !important;
-  }
-  
-  /* Simplify hero illustration for mobile */
-  .hero-illustration {
-    height: 220px;
-  }
-  
-  .box-blue {
-    height: 200px;
-    right: -15px;
-  }
-  
-  .box-teal {
-    height: 160px;
-    width: 70%;
-  }
-  
-  /* === STATISTICS === */
+
   .section-padding {
     padding: 3rem 0;
   }
-  
+
   .stat-number {
     font-size: 2rem;
   }
-  
+
   .stat-label {
     font-size: 0.85rem;
   }
-  
-  /* === CARA LAPOR === */
+
   .tab-nav {
     flex-direction: column;
     width: 100%;
   }
-  
+
   .btn-tab {
     width: 100%;
     text-align: center;
   }
-  
+
   .steps-grid {
     grid-template-columns: 1fr;
     gap: 15px;
   }
-  
+
   .card-lapor {
     padding: 20px 15px;
   }
-  
-  /* === KAPAN HARUS LAPOR === */
+
   .card-info img {
     height: 160px;
   }
-  
+
   .card-title {
     font-size: 1.1rem;
   }
-  
+
   .card-text {
     font-size: 0.9rem;
   }
-  
-  /* === MONITORING === */
+
   .monitoring-layout h2 {
     font-size: 1.8rem;
   }
-  
+
   .monitoring-layout h3 {
     font-size: 1.3rem;
   }
-  
+
   .card-monitoring {
     padding: 20px 15px;
   }
-  
+
   .icon-large {
     font-size: 2.5rem;
   }
-  
-  /* === FAQ === */
+
   .faq-button {
     padding: 12px;
     font-size: 0.95rem;
   }
-  
+
   .faq-answer {
     padding: 12px;
     font-size: 0.9rem;
   }
-  
-  /* === FOOTER === */
+
   .footer-grid {
     grid-template-columns: 1fr;
     gap: 25px;
   }
-  
+
   .footer-col h5 {
     font-size: 1.1rem;
   }
-  
-  /* === FAB SIGAP (Mobile) === */
-  .fab-sigap-container {
-    right: 16px;
-    bottom: 16px;
-  }
-  
-  .fab-main {
-    width: 52px;
-    height: 52px;
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
-  }
-  
-  .fab-main::after {
-    width: 30%;
-    height: 30%;
-  }
-  
-  .fab-icon {
-    font-size: 20px;
-  }
-  
-  .fab-item {
-    width: 44px;
-    height: 44px;
-  }
-  
-  .fab-item i {
-    font-size: 16px;
-  }
-  
-  /* Labels hide on mobile, only show on hover/tap */
-  .fab-label {
-    display: none;
-  }
-  
-  .fab-item:active .fab-label {
-    display: block;
-    font-size: 12px;
-    padding: 5px 12px;
-  }
-  
-  /* TTS Widget for Mobile */
-  .fab-tts-widget {
-    min-width: calc(100vw - 40px);
-    max-width: 280px;
-    padding: 12px 16px;
-    right: -8px;
-  }
-  
-  .fab-tts-widget-title {
-    font-size: 0.9rem;
-  }
-  
-  .fab-tts-toggle-label,
-  .fab-tts-speed-label {
-    font-size: 0.85rem;
-  }
-  
-  .fab-tts-speed-value {
-    font-size: 0.75rem;
-    padding: 2px 8px;
-  }
-  
-  /* Adjust FAB menu spacing for mobile */
-  .fab-menu {
-    gap: 10px;
-  }
-  
-  /* When TTS widget open on mobile, adjust shift */
-  .fab-menu.tts-widget-open .fab-item[data-feature="qna"],
-  .fab-menu.tts-widget-open .fab-item[data-feature="chatbot"] {
-    transform: translateY(-100px);
-  }
-  
-  /* === UTILITY CLASSES === */
+
   .mt-40 {
     margin-top: 30px;
   }
-  
+
   .mt-20 {
     margin-top: 15px;
   }
 }
 
-/* ============================================
-   EXTRA SMALL (360px and below)
-   ============================================ */
+/* === EXTRA SMALL (360px and below) === */
 @media (max-width: 360px) {
   .main-title {
     font-size: 1.6rem;
   }
-  
+
   .section-title {
     font-size: 1.5rem;
   }
-  
+
   .hero-illustration {
     height: 200px;
   }
-  
+
   .box-blue {
     height: 180px;
   }
-  
-  .fab-main {
-    width: 48px;
-    height: 48px;
-  }
-  
-  .fab-item {
-    width: 40px;
-    height: 40px;
-  }
-  
-  .fab-tts-widget {
-    min-width: calc(100vw - 32px);
-  }
 }
 
-/* ============================================
-   LANDSCAPE MOBILE (max-height: 500px)
-   ============================================ */
+/* === LANDSCAPE MOBILE (max-height: 500px) === */
 @media (max-height: 500px) and (orientation: landscape) {
   .hero-section {
     min-height: auto;
     padding-top: 80px;
     padding-bottom: 40px;
   }
-  
+
   .hero-illustration {
     display: none;
   }
-  
+
   .hero-text {
     text-align: left;
   }
-  
-  .fab-sigap-container {
-    bottom: 10px;
-    right: 10px;
-  }
-  
-  .fab-main {
-    width: 48px;
-    height: 48px;
-  }
 }
 
-/* ============================================
-   ACCESSIBILITY - TOUCH TARGETS
-   ============================================ */
+/* === ACCESSIBILITY - TOUCH TARGETS === */
 @media (hover: none) and (pointer: coarse) {
-  /* Increase touch targets for mobile */
   .btn,
   .nav-item,
-  .faq-button,
-  .fab-main,
-  .fab-item {
+  .faq-button {
     min-height: 44px;
     min-width: 44px;
   }
-  
-  /* Remove hover effects on touch devices */
+
   .btn:hover,
-  .card:hover,
-  .fab-item:hover {
+  .card:hover {
     transform: none;
   }
-  
-  /* Add active/tap states instead */
+
   .btn:active,
   .card:active {
     transform: scale(0.98);
   }
-  
-  .fab-item:active {
-    transform: scale(1.05);
-  }
 }
 
-/* ============================================
-   PRINT STYLES
-   ============================================ */
+/* === PRINT STYLES === */
 @media print {
   .navbar,
-  .fab-sigap-container,
   .hamburger,
   .btn,
   footer {
     display: none !important;
   }
-  
+
   body {
     font-size: 12pt;
     line-height: 1.5;
   }
-  
+
   .hero-section {
     padding-top: 0;
   }
-  
+
   .section-padding {
     padding: 20pt 0;
   }
 }
 
-/* ============================================
-   PERFORMANCE - REDUCE ANIMATIONS ON LOW-END
-   ============================================ */
+/* === PERFORMANCE - REDUCE ANIMATIONS ON LOW-END === */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -1459,14 +1208,13 @@ img {
     transition-duration: 0.01ms !important;
   }
 }
+
 /* ============================================
    MOBILE NAVBAR IMPROVEMENTS
-   Add this to your style.css
    ============================================ */
 
 /* Better hamburger icon styling */
 .hamburger {
-  display: none;
   font-size: 1.5rem;
   background: none;
   border: none;
@@ -1486,43 +1234,21 @@ img {
   transform: rotate(90deg);
 }
 
-/* Better mobile nav positioning */
-@media (max-width: 768px) {
-  .hamburger {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Ensure nav-actions stack properly on small screens */
-  .nav-actions {
-    display: flex;
-    align-items: center;
-    flex-wrap: nowrap;
-  }
-  
-  /* Prevent text overflow on LAPOR button */
-  .nav-actions .btn-outline-light {
-    min-width: auto;
-    flex-shrink: 0;
-  }
-}
-
 /* Extra small screens - compact navbar */
 @media (max-width: 480px) {
   .nav-content {
     gap: 8px;
   }
-  
+
   .logo {
     flex-shrink: 0;
   }
-  
+
   .nav-actions {
     gap: 8px;
     margin-left: auto;
   }
-  
+
   .nav-actions .btn {
     padding: 8px 16px;
     font-size: 0.85rem;
@@ -1530,19 +1256,17 @@ img {
 }
 
 /* Fix for any stray tooltips or dropdowns */
-@media (max-width: 768px) {
-  /* Hide any tooltip-like elements that shouldn't be visible */
+@media (max-width: 1015px) {
   [role="tooltip"],
   .tooltip,
   [data-tooltip] {
     display: none !important;
   }
-  
-  /* Clean slate for navigation items */
+
   .nav-item {
     position: relative;
   }
-  
+
   .nav-item::before,
   .nav-item::after {
     display: none !important;
