@@ -32,3 +32,4 @@ document.addEventListener('DOMContentLoaded', () => {
   const section = document.querySelector('.pelapor');
   if (section) observer.observe(section);
 });
+
