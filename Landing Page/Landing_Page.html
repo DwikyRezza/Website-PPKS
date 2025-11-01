@@ -4,17 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Satgas PPKS</title>
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+    <link rel="stylesheet" href="../style.css" />
 
     <!-- FAB Sigap Styles -->
-    <link rel="stylesheet" href="FABsigap/fabsigap.css" />
+    <link rel="stylesheet" href="../FABsigap/fabsigap.css" />
 
     <!-- ⭐ NEW: Chatbot Styles -->
-    <link rel="stylesheet" href="FABsigap/chatbot.css" />
+    <link rel="stylesheet" href="../FABsigap/chatbot.css" />
   </head>
   <body>
     <!-- NAVBAR START -->
@@ -28,7 +25,7 @@
         <a class="logo" href="#">Sigap</a>
 
         <div class="nav-links" id="primary-navigation">
-          <a class="nav-item" href="about.html">ABOUT</a>
+          <a class="nav-item" href="../About Page/about.html">ABOUT</a>
           <a class="nav-item" href="#caraLapor">CARA LAPOR</a>
           <a class="nav-item" href="#kapanLapor">KAPAN HARUS LAPOR?</a>
           <a class="nav-item" href="#monitoring">MONITORING</a>
@@ -383,22 +380,21 @@
     </footer>
 
     <!-- Main Website Scripts -->
-    <script src="index.js" defer></script>
+    <script src="../index.js" defer></script>
 
     <!-- ⭐ NEW: Chatbot Modules (MUST LOAD BEFORE fabsigap.js) -->
-    <script src="FABsigap/modules/gemini_api.js" defer></script>
-    <script src="FABsigap/modules/temanku_chatbot.js" defer></script>
-    <script src="FABsigap/modules/breathing.js" defer></script>
+    <script src="../FABsigap/modules/gemini_api.js" defer></script>
+    <script src="../FABsigap/modules/temanku_chatbot.js" defer></script>
+    <script src="../FABsigap/modules/breathing.js" defer></script>
 
     <!-- FAB Sigap Scripts (Load in Order) -->
-    <script src="FABsigap/modules/qna_mental.js" defer></script>
-    <script src="FABsigap/modules/text_to_speech.js" defer></script>
-    <script src="FABsigap/fabsigap.js" defer></script>
+    <script src="../FABsigap/modules/qna_mental.js" defer></script>
+    <script src="../FABsigap/modules/text_to_speech.js" defer></script>
+    <script src="../FABsigap/fabsigap.js" defer></script>
 
     <!-- Accessibility Library -->
     <script
       src="https://cdn.jsdelivr.net/npm/sienna-accessibility@latest/dist/sienna-accessibility.umd.js"
-      defer
-    ></script>
+      defer></script>
   </body>
 </html>
