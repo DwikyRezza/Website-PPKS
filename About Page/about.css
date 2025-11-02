@@ -31,7 +31,7 @@
 }
 
 .social-icons a {
-  color: #000 !important;
+  color: #000000 !important;
   font-size: 1.1rem;
   text-decoration: none;
   display: flex;
@@ -48,8 +48,8 @@
 
 /* HOVER: Lebih menonjol */
 .social-icons a:hover {
-  background: #f0f0f0;           /* Latar abu muda */
-  color: #000 !important;
+  background: #000000;           /* Latar abu muda */
+  color: #ffffff !important;
   transform: translateY(-3px) scale(1.1);
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
   z-index: 1;
@@ -80,6 +80,64 @@
   outline: 2px solid #000;
   outline-offset: 2px;
 }
+
+/* SOCIAL ICON FOOTER START */
+.social-icons-footer {
+  display: flex;
+  gap: 15px; /* Ganti margin-left biar lebih rapi */
+}
+
+.social-icons-footer a {
+  color: #ffffff !important;
+  font-size: 1.1rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.3s var(--ease-calm);
+  position: relative;
+  overflow: hidden;
+}
+
+/* HOVER: Lebih menonjol */
+.social-icons-footer a:hover {
+  background: #000000;           /* Latar abu muda */
+  color: #ffffff !important;
+  transform: translateY(-3px) scale(1.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+}
+
+/* Efek ripple halus (opsional) */
+.social-icons-footer a::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+  z-index: -1;
+}
+
+.social-icons-footer a:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+/* Focus untuk aksesibilitas */
+.social-icons a:focus {
+  outline: 2px solid #000;
+  outline-offset: 2px;
+}
+/* SOCIAL ICON FOOTER */
 
 /* Visi Misi */
 .visi-misi {
