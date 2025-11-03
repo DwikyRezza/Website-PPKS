@@ -4,7 +4,7 @@
    ============================================ */
 
 .about-hero {
-  background: linear-gradient(135deg, #f0f4f8 0%, #e0e7ef 100%);
+  background: linear-gradient(170deg, #c8cacc 0%, #3d7dc5 100%);
   padding-top: 140px;
 }
 .about-hero-grid {
@@ -74,6 +74,7 @@
   width: 300px;
   height: 300px;
 }
+
 
 /* Focus untuk aksesibilitas */
 .social-icons a:focus {

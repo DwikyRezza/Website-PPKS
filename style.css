@@ -61,7 +61,7 @@
   --color-purple: #6a5acd;
   --color-accent-blue: #3b5998;
   --color-green: #3a6845;
-
+  --color-black: #000;
   --color-text-dark: #333;
   --color-text-light: #fff;
 
@@ -159,7 +159,7 @@ li,
   color: var(--color-text-light);
 }
 .text-muted {
-  color: #ccc;
+  color: #000000;
 }
 .mt-20 {
   margin-top: 20px;
@@ -338,7 +338,7 @@ li,
 }
 
 .nav-links .nav-item {
-  color: var(--color-text-light);
+  color: var(--color-text);
   text-decoration: none;
   padding: 5px 15px;
   border: 1px solid transparent;
