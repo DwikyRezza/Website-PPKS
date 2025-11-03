@@ -1,9 +1,9 @@
-// ============================================
+// ===============================================
 // DOKUMENTASI UMUM INDEX.JS
 // File ini menangani interaksi utama situs, termasuk smooth scroll, navbar scroll, reveal on scroll, mobile menu, tabs, accordion, loading state, dan parallax.
 // Semua fitur dibungkus dalam IIFE untuk menghindari polusi global scope.
 // Responsivitas dipertimbangkan dengan prefers-reduced-motion untuk mengurangi animasi pada user yang sensitif.
-// ============================================
+// ================================================
 
 (function () {
   'use strict';

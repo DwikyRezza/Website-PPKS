@@ -230,6 +230,7 @@ li,
 
 /* Ikon & List */
 .social-icons a {
+  display: flex;
   color: var(--color-text-light);
   margin-left: 15px;
   font-size: 1.1rem;
@@ -313,7 +314,7 @@ li,
 
 /* HOVER: MENONJOL */
 .logo:hover {
-  color: #d52828 !important;
+  color: #17737d !important;
   text-decoration: none !important;
   transform: translateY(-4px) scale(1.05);
   text-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
@@ -549,7 +550,9 @@ li,
   margin: 0;
   font-size: 0.9rem;
 }
-
+.gambar{
+  height: 100px;
+}
 /* === Reveal on Scroll (calm fade-in) === */
 /* Dokumentasi: Efek reveal menggunakan IntersectionObserver untuk animasi masuk elemen saat scroll. */
 .reveal {

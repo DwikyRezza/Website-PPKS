@@ -25,9 +25,14 @@
    Berlaku global (navbar & footer)
    ============================================ */
 
+   .tulisan{
+    display: flex;
+   }
 .social-icons {
+  padding-left: 25px;
+  padding-top: 15px ;
   display: flex;
-  gap: 15px; /* Ganti margin-left biar lebih rapi */
+  gap: 10px; /* Ganti margin-left biar lebih rapi */
 }
 
 .social-icons a {
@@ -191,6 +196,9 @@
   text-align: center;
   color: white;
   backdrop-filter: blur(10px);
+}
+.gambarTugas{
+  padding: 10px 0px 40px 40px;
 }
 .tugas-icon {
   font-size: 3rem;
