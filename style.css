@@ -403,7 +403,6 @@ li,
 }
 
 .box-blue {
-  background-color: var(--color-accent-blue);
   width: 100%;
   height: 350px;
   top: 0;
@@ -460,7 +459,6 @@ li,
   z-index: 20;
 }
 .card-overlay2 {
-  background-color: var(--color-green);
   padding: 5px 15px;
   height: 150px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -471,7 +469,7 @@ li,
   z-index: 20;
 }
 .card-overlay-top {
-  bottom: 300px;
+  bottom: 370px;
   left: -10%;
   width: 40%;
 }
@@ -481,7 +479,7 @@ li,
   width: 50%;
 }
 .card-overlay-bottom {
-  bottom: 60px;
+  bottom: 40px;
   left: -10%;
   width: 50%;
 }
