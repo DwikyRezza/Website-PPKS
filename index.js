@@ -202,20 +202,34 @@
 
   // ============================================
   // LOADING STATE FOR MONITORING
-  // Dokumentasi: Menangani tombol cek progress dengan validasi input, tampilkan spinner loading, dan simulasikan respons berdasarkan kode (hardcoded untuk demo).
+  // Dokumentasi: Menangani tombol cek progress dengan validasi input, tampilkan spinner loading, redirect ke monitoring page jika valid, atau error jika tidak ditemukan.
   // ============================================
   const checkBtn = document.getElementById('checkProgressBtn');
   const progressStatusDiv = document.getElementById('progressStatus');
   const kodeInput = document.getElementById('kodeLaporan');
   if (checkBtn && progressStatusDiv && kodeInput) {
+    // Valid codes (sesuai dummy-data.js)
+    const VALID_CODES = ['GNJ34', 'ABC12', 'DEF56', 'XYZ89'];
+    
     checkBtn.addEventListener('click', function () {
-      const kode = kodeInput.value.trim();
+      const kode = kodeInput.value.trim().toUpperCase();
       progressStatusDiv.innerHTML = '';
+      
+      // Validation
       if (kode === '') { 
         progressStatusDiv.innerHTML = '<span style="color: #a94442;">Silakan masukkan kode laporan terlebih dahulu.</span>'; 
         return; 
       }
+      
+      if (kode.length < 3) {
+        progressStatusDiv.innerHTML = '<span style="color: #a94442;">Kode laporan minimal 3 karakter.</span>';
+        return;
+      }
+      
+      // Disable button
       checkBtn.disabled = true;
+      
+      // Show loading
       const spinner = document.createElement('span'); 
       spinner.className = 'spinner'; 
       spinner.setAttribute('aria-hidden', 'true');
@@ -225,18 +239,42 @@
       loadingText.textContent = 'Memeriksa...';
       progressStatusDiv.appendChild(spinner); 
       progressStatusDiv.appendChild(loadingText);
+      
+      // Simulate API check (1.5 seconds - temporary for demo)
       setTimeout(() => {
-        let msg = '';
-        if (kode === 'PPKS123') {
-          msg = '<span style="color: #2e7d32;">Status: Laporan Anda sedang dalam tahap Verifikasi Awal oleh tim kami.</span>';
-        } else if (kode === 'PPKS456') {
-          msg = '<span style="color: #1565c0;">Status: Laporan telah dilanjutkan ke tahap Investigasi.</span>';
+        // Check if code is valid
+        if (VALID_CODES.includes(kode)) {
+          // Code found! Show success then redirect
+          progressStatusDiv.innerHTML = '<span style="color: #2e7d32;"><i class="fas fa-check-circle"></i> Laporan ditemukan! Mengarahkan ke halaman monitoring...</span>';
+          
+          // Redirect after brief success message
+          setTimeout(() => {
+            window.location.href = `../Monitoring/monitoring.html?id=${kode}`;
+          }, 500);
         } else {
-          msg = '<span style="color: #ef6c00;">Kode laporan tidak ditemukan. Pastikan kode benar, ya.</span>';
+          // Code not found - show error
+          progressStatusDiv.innerHTML = `<span style="color: #ef6c00;"><i class="fas fa-exclamation-circle"></i> Kode laporan "${kode}" tidak ditemukan. Silakan periksa kembali.</span>`;
+          checkBtn.disabled = false;
+          
+          // Auto-clear error after 5 seconds
+          setTimeout(() => {
+            progressStatusDiv.innerHTML = '';
+          }, 5000);
         }
-        progressStatusDiv.innerHTML = msg;
-        checkBtn.disabled = false;
-      }, 600);
+      }, 1500); // 1.5 seconds loading
+    });
+    
+    // Auto-uppercase input
+    kodeInput.addEventListener('input', function() {
+      kodeInput.value = kodeInput.value.toUpperCase();
+    });
+    
+    // Enter key support
+    kodeInput.addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        checkBtn.click();
+      }
     });
   }
 
