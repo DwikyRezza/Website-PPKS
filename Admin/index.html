@@ -23,8 +23,8 @@
 
                     <form id="loginForm">
                         <div class="mb-3">
-                            <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" required>
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="username" required>
                         </div>
                         
                         <div class="mb-4">
@@ -38,11 +38,11 @@
                         </div>
 
                         <div id="errorMessage" class="alert alert-danger d-none" role="alert">
-                            Email atau Password salah!
+                            Username atau Password salah!
                         </div>
                         
                         <div class="d-grid mt-3">
-                            <button type="submit" class="btn btn-primary btn-login">Log in</button>
+                            <button type="submit" class="btn btn-primary btn-login" id="loginBtn">Log in</button>
                         </div>
                     </form>
                 </div>
@@ -58,15 +58,20 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // NOTE: Sesuaikan URL ini jika lokasi folder proyek Anda berbeda di XAMPP htdocs
+            const API_BASE_URL = 'http://localhost/Website-PPKS/Back-End/public/api';
+            
             const passwordField = document.getElementById('password');
             const toggleIconContainer = document.getElementById('togglePasswordIcon');
             const eyeIcon = document.getElementById('eyeIcon');
             
             const loginForm = document.getElementById('loginForm');
-            const emailField = document.getElementById('email');
+            const usernameField = document.getElementById('username');
+            const passwordInput = document.getElementById('password');
             const errorMessage = document.getElementById('errorMessage');
+            const loginBtn = document.getElementById('loginBtn');
 
-            // --- FUNGSI IKON MATA (DARI SEBELUMNYA) ---
+            // --- FUNGSI IKON MATA ---
             passwordField.addEventListener('input', function() {
                 toggleIconContainer.style.display = (passwordField.value.length > 0) ? 'flex' : 'none';
             });
@@ -84,29 +89,46 @@
                 }
             });
 
-            // --- FUNGSI VALIDASI & REDIRECT BARU ---
-            loginForm.addEventListener('submit', function(event) {
-                // 1. Mencegah form terkirim (refresh halaman)
+            // --- FUNGSI LOGIN DENGAN FETCH API ---
+            loginForm.addEventListener('submit', async function(event) {
                 event.preventDefault();
 
-                // 2. Ambil nilai input
-                const email = emailField.value;
-                const password = passwordField.value;
+                const username = usernameField.value;
+                const password = passwordInput.value;
+                
+                errorMessage.classList.add('d-none');
+                loginBtn.disabled = true;
+                loginBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
 
-                // 3. Tentukan email & password "yang benar" (HANYA UNTUK SIMULASI)
-                const correctEmail = "admin@sigap.com";
-                const correctPassword = "password123";
+                try {
+                    const response = await fetch(API_BASE_URL + '/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ username, password })
+                    });
 
-                // 4. Lakukan pengecekan
-                if (email === correctEmail && password === correctPassword) {
-                    // Jika benar, arahkan (redirect) ke halaman dashboard
-                    errorMessage.classList.add('d-none'); // Sembunyikan error jika ada
-                    alert('Login Berhasil! Mengarahkan ke Dashboard...');
-                    // Ganti 'dashboard.html' dengan nama file halaman baru Anda
-                    window.location.href = "dashboard.html"; 
-                } else {
-                    // Jika salah, tampilkan pesan error
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        // Simpan data user ke sessionStorage untuk ditampilkan di sidebar
+                        sessionStorage.setItem('userData', JSON.stringify(result.user));
+                        
+                        alert(`Selamat datang, ${result.user.nama_lengkap}!`);
+                        // Redirect ke dashboard
+                        window.location.href = "dashboard.html"; 
+                    } else {
+                        errorMessage.textContent = result.message || "Username atau Password salah!";
+                        errorMessage.classList.remove('d-none');
+                    }
+                } catch (error) {
+                    console.error('Network Error:', error);
+                    errorMessage.textContent = "Koneksi ke server gagal. Pastikan backend PHP berjalan.";
                     errorMessage.classList.remove('d-none');
+                } finally {
+                    loginBtn.disabled = false;
+                    loginBtn.innerHTML = 'Log in';
                 }
             });
         });

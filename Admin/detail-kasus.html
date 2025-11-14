@@ -42,8 +42,8 @@
             <div class="user-profile">
                 <i class="bi bi-person-circle me-2 fs-3"></i>
                 <div class="user-info">
-                    <span class="user-name">(nama_Admin)</span>
-                    <span class="user-role">Admin</span>
+                    <span class="user-name" id="adminName">(Memuat...)</span>
+                    <span class="user-role" id="adminRole">Admin</span>
                 </div>
             </div>
         </nav>
@@ -57,100 +57,333 @@
                 <h2 class="breadcrumb-header">
                     <a href="dashboard.html">Data Kasus</a> 
                     <i class="bi bi-chevron-right"></i> 
-                    <span>{nama_pelapor}</span>
+                    <span id="pelaporNameSpan">Detail Laporan #ID</span>
                 </h2>
                 
-                <div></div> </header>
-            
-            <div class="card shadow-sm border-0 detail-card">
-                <div class="card-body p-4 p-md-5">
-                    <h3 class="detail-title">DATA PELAPOR</h3>
-
-                    <div class="row g-4 g-lg-5 mt-4">
-                        <div class="col-md-6">
-                            <div class="detail-field">
-                                <label>Darurat/Tidak</label>
-                                <span>{darurat_Tidak}</span>
-                            </div>
-                            <div class="detail-field">
-                                <label>Siapa Korbannya?</label>
-                                <span>{korban}</span>
-                            </div>
-                            <div class="detail-field">
-                                <label>Nilai Tingkat Kekhawatiran</label>
-                                <span>{Kekhawatirannya}</span>
-                            </div>
-                            <div class="detail-field">
-                                <label>Gender Korban</label>
-                                <span>{jenis_kelamin}</span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="detail-field">
-                                <label>Siapa yang melakukan kekerasan?</label>
-                                <span>{Pelaku}</span>
-                            </div>
-                            <div class="detail-field">
-                                <label>Kapan Kejadiannya</label>
-                                <span>{tanggal_kejadian}</span>
-                            </div>
-                            <div class="detail-field">
-                                <label>Dimana Kejadiannya</label>
-                                <span>{tempat_kejadian}</span>
-                            </div>
-                            <div class="detail-field">
-                                <label>Lokasi Kejadian</label>
-                                <span>{Provinsi/Kota}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="audio-card mt-4">
-                        <div class="detail-field mb-0">
-                            <label>Apa yang terjadi?</label>
-                            <span>{Kejadian}</span>
-                        </div>
-                        
-                        <audio controls class="audio-player">
-                            <source src="rekaman_kasus.m4a" type="audio/mpeg">
-                            Browser Anda tidak mendukung elemen audio.
-                        </audio>
-                    </div>
+                <div id="statusBadgeContainer">
+                    <span class="status-badge status-pending" id="currentStatusText">Memuat Status...</span>
                 </div>
+            </header>
+            
+            <div id="detailLoading" class="text-center p-5">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2 text-muted">Memuat detail laporan...</p>
             </div>
 
-            <footer class="detail-footer">
-                <button class="btn btn-danger btn-hapus">
-                    <i class="bi bi-trash-fill me-2"></i>
-                    Hapus Data Pelapor
-                </button>
+            <div id="detailContent" style="display: none;">
+                <div class="card shadow-sm border-0 detail-card">
+                    <div class="card-body p-4 p-md-5">
+                        <h3 class="detail-title">DATA PELAPOR</h3>
 
-                <div class="dropdown">
-                    <button class="btn btn-primary btn-log-status dropdown-toggle" type="button" id="dropdownLogStatus" data-bs-toggle="dropdown" aria-expanded="false">
-                        Log Status
-                    </button>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLogStatus" id="logStatusMenu">
-                        <li><a class="dropdown-item" href="#">Konfirmasi Bukti & Saksi</a></li>
-                        <li><a class="dropdown-item" href="#">Validasi Laporan</a></li>
-                        <li><a class="dropdown-item" href="#">Konseling Dengan Korban</a></li>
-                        <li><a class="dropdown-item" href="#">Tindak Lanjut</a></li>
-                        <li><a class="dropdown-item" href="#">Selesai</a></li>
-                    </ul>
+                        <div class="row g-4 g-lg-5 mt-4">
+                            <div class="col-md-6">
+                                <div class="detail-field">
+                                    <label>Darurat/Tidak</label>
+                                    <span id="isDarurat"></span>
+                                </div>
+                                <div class="detail-field">
+                                    <label>Siapa Korbannya?</label>
+                                    <span id="korbanStatus"></span>
+                                </div>
+                                <div class="detail-field">
+                                    <label>Nilai Tingkat Kekhawatiran</label>
+                                    <span id="tingkatKhawatir"></span>
+                                </div>
+                                <div class="detail-field">
+                                    <label>Gender Korban</label>
+                                    <span id="genderKorban"></span>
+                                </div>
+                                <div class="detail-field">
+                                    <label>Usia Korban</label>
+                                    <span id="usiaKorban"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-field">
+                                    <label>Email Kontak</label>
+                                    <span id="emailKorban"></span>
+                                </div>
+                                <div class="detail-field">
+                                    <label>Nomor WhatsApp</label>
+                                    <span id="whatsappKorban"></span>
+                                </div>
+                                <div class="detail-field">
+                                    <label>Disabilitas</label>
+                                    <span id="isDisabilitas"></span>
+                                </div>
+                                <div class="detail-field" id="jenisDisabilitasField" style="display: none;">
+                                    <label>Jenis Disabilitas</label>
+                                    <span id="jenisDisabilitas"></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3 class="detail-title mt-5">DATA KEJADIAN</h3>
+                        
+                        <div class="row g-4 g-lg-5 mt-4">
+                            <div class="col-md-6">
+                                <div class="detail-field">
+                                    <label>Siapa yang melakukan kekerasan?</label>
+                                    <span id="pelakuHubungan"></span>
+                                </div>
+                                <div class="detail-field">
+                                    <label>Kapan Kejadiannya</label>
+                                    <span id="waktuKejadian"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="detail-field">
+                                    <label>Dimana Kejadiannya</label>
+                                    <span id="lokasiKejadian"></span>
+                                </div>
+                                <div class="detail-field">
+                                    <label>Tanggal Laporan Dibuat</label>
+                                    <span id="tanggalLaporan"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="audio-card mt-4">
+                            <div class="detail-field mb-0">
+                                <label>Apa yang terjadi? (Deskripsi Kasus)</label>
+                                <span id="deskripsiKasus"></span>
+                            </div>
+                            
+                            <audio controls class="audio-player" id="audioPlayer" style="display: none;">
+                                <source src="#" type="audio/mpeg">
+                                Browser Anda tidak mendukung elemen audio.
+                            </audio>
+                            <span id="buktiStatus"></span>
+                        </div>
+                    </div>
                 </div>
-            </footer>
+
+                <footer class="detail-footer">
+                    <button class="btn btn-danger btn-hapus" id="deleteBtn">
+                        <i class="bi bi-trash-fill me-2"></i>
+                        Hapus Laporan
+                    </button>
+
+                    <div class="log-status-wrapper">
+                        <div class="dropdown">
+                            <button class="btn btn-primary btn-log-status dropdown-toggle" type="button" id="dropdownLogStatus" data-bs-toggle="dropdown" aria-expanded="false">
+                                Log Status
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownLogStatus" id="logStatusMenu">
+                                <li><a class="dropdown-item" href="#" data-status="DITERIMA" data-step="2">1. Laporan Diterima (Step 2)</a></li>
+                                <li><a class="dropdown-item" href="#" data-status="DIPROSES" data-step="3">2. Mulai Proses (Step 3)</a></li>
+                                <li><a class="dropdown-item" href="#" data-status="PERLINDUNGAN" data-step="5">3. Dalam Perlindungan (Step 5)</a></li>
+                                <li><a class="dropdown-item" href="#" data-status="SELESAI" data-step="8">4. Kasus Selesai (Step 8)</a></li>
+                                <li><a class="dropdown-item" href="#" data-status="DITOLAK" data-step="8">5. Kasus Ditolak (Step 8)</a></li>
+                            </ul>
+                        </div>
+                        <small class="current-status-text">Status saat ini: <strong id="currentStatusDisplay">Memuat...</strong></small>
+                    </div>
+                </footer>
+            </div>
         </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        const API_BASE_URL = 'http://localhost/WEBSITE-PPKS/Back-End/public/api';
+        
         document.addEventListener('DOMContentLoaded', function() {
-            
-            // --- Kode Sidebar Toggle (YANG SUDAH ADA) ---
             const sidebar = document.getElementById('sidebar');
             const toggleButton = document.getElementById('sidebarToggle');
             const mainContent = document.getElementById('mainContent');
+            const detailContent = document.getElementById('detailContent');
+            const detailLoading = document.getElementById('detailLoading');
+            const currentStatusDisplay = document.getElementById('currentStatusDisplay');
+            const deleteBtn = document.getElementById('deleteBtn');
+            
+            let laporanId = null; 
+            let currentKodeLaporan = null;
 
+            // Memuat Info Admin
+            function loadAdminInfo() {
+                const userData = sessionStorage.getItem('userData');
+                if (!userData) {
+                    window.location.href = 'index.html'; // Redirect jika belum login
+                    return;
+                }
+                const user = JSON.parse(userData);
+                document.getElementById('adminName').textContent = user.nama_lengkap;
+                document.getElementById('adminRole').textContent = user.role.toUpperCase();
+            }
+
+            // Helper untuk status badge
+            function getStatusClass(status) {
+                switch (status.toUpperCase()) {
+                    case 'SELESAI':
+                        return 'status-complete';
+                    case 'DIPROSES':
+                    case 'DITERIMA':
+                    case 'PERLINDUNGAN':
+                        return 'status-process';
+                    case 'DRAFT':
+                    case 'DITOLAK':
+                        return 'status-draft';
+                    default:
+                        return 'status-pending';
+                }
+            }
+            
+            // Helper untuk memformat data
+            function capitalize(s) {
+                return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+            }
+            function formatDate(dateString) {
+                const options = { day: '2-digit', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' };
+                return new Date(dateString).toLocaleDateString('id-ID', options);
+            }
+
+            // 1. Mengambil Detail Laporan
+            async function fetchLaporanDetail() {
+                const urlParams = new URLSearchParams(window.location.search);
+                laporanId = urlParams.get('id');
+
+                if (!laporanId) {
+                    detailLoading.innerHTML = '<p class="text-danger">ID Laporan tidak ditemukan.</p>';
+                    return;
+                }
+                
+                detailLoading.style.display = 'block';
+                detailContent.style.display = 'none';
+
+                try {
+                    const response = await fetch(API_BASE_URL + `/admin/laporan/${laporanId}`);
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        const data = result.data;
+                        currentKodeLaporan = data.kode_laporan;
+
+                        // Header dan Status
+                        document.getElementById('pelaporNameSpan').textContent = `Detail Laporan #${currentKodeLaporan}`;
+                        document.getElementById('currentStatusDisplay').textContent = data.status_laporan.toUpperCase();
+                        
+                        const statusBadgeEl = document.getElementById('statusBadgeContainer');
+                        statusBadgeEl.innerHTML = `<span class="status-badge ${getStatusClass(data.status_laporan)}" id="currentStatusText">${data.status_laporan.toUpperCase()}</span>`;
+                        
+                        // Detail Data
+                        document.getElementById('isDarurat').textContent = data.is_darurat ? 'DARURAT' : 'TIDAK DARURAT';
+                        document.getElementById('korbanStatus').textContent = capitalize(data.korban_status);
+                        document.getElementById('tingkatKhawatir').textContent = capitalize(data.tingkat_khawatir);
+                        document.getElementById('genderKorban').textContent = capitalize(data.gender_korban);
+                        document.getElementById('usiaKorban').textContent = data.usia_korban;
+                        
+                        document.getElementById('emailKorban').textContent = data.email_korban || '-';
+                        document.getElementById('whatsappKorban').textContent = data.whatsapp_korban || '-';
+                        document.getElementById('tanggalLaporan').textContent = formatDate(data.created_at);
+
+                        // Disabilitas
+                        document.getElementById('isDisabilitas').textContent = data.is_disabilitas ? 'YA' : 'TIDAK';
+                        if (data.is_disabilitas) {
+                            document.getElementById('jenisDisabilitasField').style.display = 'block';
+                            document.getElementById('jenisDisabilitas').textContent = data.jenis_disabilitas || 'Tidak disebutkan';
+                        } else {
+                            document.getElementById('jenisDisabilitasField').style.display = 'none';
+                        }
+
+                        // Data Kejadian
+                        document.getElementById('pelakuHubungan').textContent = capitalize(data.pelaku_hubungan.replace(/_/g, ' '));
+                        document.getElementById('waktuKejadian').textContent = capitalize(data.waktu_kejadian);
+                        document.getElementById('lokasiKejadian').textContent = capitalize(data.lokasi_kejadian.replace(/_/g, ' '));
+                        document.getElementById('deskripsiKasus').textContent = data.deskripsi;
+                        
+                        // Bukti Audio (jika ada)
+                        const audioPlayer = document.getElementById('audioPlayer');
+                        if (data.bukti_path) {
+                            // Asumsi bukti_path menyimpan path relatif dari public/
+                            audioPlayer.src = `http://localhost/WEBSITE-PPKS/Back-End/public${data.bukti_path}`;
+                            audioPlayer.style.display = 'block';
+                            document.getElementById('buktiStatus').textContent = '';
+                        } else {
+                            audioPlayer.style.display = 'none';
+                            document.getElementById('buktiStatus').textContent = 'Tidak ada bukti audio/file terlampir.';
+                        }
+
+
+                        detailContent.style.display = 'block';
+                    } else {
+                        detailLoading.innerHTML = `<p class="text-danger">Gagal memuat detail: ${result.message || 'Laporan tidak ditemukan.'}</p>`;
+                    }
+                } catch (error) {
+                    console.error('Error fetching detail:', error);
+                    detailLoading.innerHTML = '<p class="text-danger">Koneksi gagal. Pastikan backend berjalan.</p>';
+                } finally {
+                    detailLoading.style.display = 'none';
+                }
+            }
+
+            // 2. Logika Update Status (Log Status Dropdown)
+            const logStatusMenu = document.getElementById('logStatusMenu');
+            logStatusMenu.addEventListener('click', async function(event) {
+                const target = event.target.closest('a.dropdown-item');
+                if (!target) return;
+                
+                event.preventDefault();
+
+                const newStatus = target.dataset.status;
+                const targetStep = parseInt(target.dataset.step);
+                
+                if (!confirm(`Yakin ingin mengubah status laporan #${currentKodeLaporan} menjadi "${newStatus.toUpperCase()}"?`)) {
+                    return;
+                }
+
+                try {
+                    const response = await fetch(API_BASE_URL + `/admin/kasus/${laporanId}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({ 
+                            newStatus: newStatus, 
+                            targetStep: targetStep,
+                            // adminNotes: 'Otomatis dari UI' // Bisa ditambahkan input catatan admin
+                        })
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        alert('Status berhasil diperbarui! Timeline akan diperbarui.');
+                        fetchLaporanDetail(); // Muat ulang data
+                    } else {
+                        alert(`Gagal memperbarui status: ${result.message || 'Terjadi kesalahan API.'}`);
+                    }
+                } catch (error) {
+                    console.error('Error updating status:', error);
+                    alert('Koneksi gagal saat update status.');
+                }
+            });
+
+            // 3. Logika Hapus Laporan
+            deleteBtn.addEventListener('click', async function() {
+                if (!confirm(`PERINGATAN: Anda akan menghapus laporan #${currentKodeLaporan} secara permanen. Lanjutkan?`)) {
+                    return;
+                }
+                
+                try {
+                    const response = await fetch(API_BASE_URL + `/admin/laporan/${laporanId}`, { method: 'DELETE' });
+                    
+                    if (response.ok) {
+                        alert(`Laporan #${currentKodeLaporan} berhasil dihapus.`);
+                        window.location.href = 'dashboard.html'; // Kembali ke dashboard
+                    } else {
+                        const result = await response.json();
+                        alert(`Gagal menghapus: ${result.message || 'Terjadi kesalahan.'}`);
+                    }
+                } catch (error) {
+                    console.error('Error deleting report:', error);
+                    alert('Koneksi gagal saat menghapus laporan.');
+                }
+            });
+
+
+            // Logika Sidebar Toggle (TETAP SAMA)
             toggleButton.addEventListener('click', function(event) {
                 event.stopPropagation(); 
                 sidebar.classList.toggle('active');
@@ -162,28 +395,9 @@
                 }
             });
             
-            // --- KODE BARU UNTUK LOG STATUS DROPDOWN ---
-            
-            // 1. Ambil tombolnya
-            const logStatusButton = document.getElementById('dropdownLogStatus');
-            
-            // 2. Ambil semua item di dalam menu
-            const statusItems = document.querySelectorAll('#logStatusMenu .dropdown-item');
-
-            // 3. Loop setiap item dan tambahkan event listener
-            statusItems.forEach(item => {
-                item.addEventListener('click', function(event) {
-                    // Mencegah link '#' me-refresh halaman atau scroll ke atas
-                    event.preventDefault(); 
-                    
-                    // Ambil teks dari item yang diklik (mis: "Validasi Laporan")
-                    const selectedText = this.textContent; 
-                    
-                    // Set teks tombol "Log Status" menjadi teks yang dipilih
-                    logStatusButton.textContent = selectedText; 
-                });
-            });
-
+            // START
+            loadAdminInfo();
+            fetchLaporanDetail();
         });
     </script>
 </body>

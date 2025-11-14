@@ -47,8 +47,8 @@
             <div class="user-profile">
                 <i class="bi bi-person-circle me-2 fs-3"></i>
                 <div class="user-info">
-                    <span class="user-name">(nama_Admin)</span>
-                    <span class="user-role">Admin</span>
+                    <span class="user-name" id="adminName">(Memuat...)</span>
+                    <span class="user-role" id="adminRole">Admin</span>
                 </div>
             </div>
         </nav>
@@ -61,7 +61,12 @@
                 <h2>Jumlah Pelapor</h2>
                 <div></div> </header>
             
-            <div class="stat-card-main card shadow-sm border-0 mb-4">
+            <div id="statsLoader" class="text-center p-5">
+                <div class="spinner-border text-primary" role="status"></div>
+                <p class="mt-2 text-muted">Memuat data statistik...</p>
+            </div>
+
+            <div class="stat-card-main card shadow-sm border-0 mb-4" id="statCardMain" style="display: none;">
                 <div class="card-body p-4">
                     <div class="row align-items-center">
                         <div class="col-md-5 d-flex justify-content-center align-items-center">
@@ -80,17 +85,17 @@
                                 <tbody>
                                     <tr>
                                         <td><span class="legend-dot" style="background-color: #3B82F6;"></span> Laki-Laki</td>
-                                        <td class="text-end fw-bold" id="table-laki">101</td>
+                                        <td class="text-end fw-bold" id="table-laki">0</td>
                                     </tr>
                                     <tr>
                                         <td><span class="legend-dot" style="background-color: #EF4444;"></span> Perempuan</td>
-                                        <td class="text-end fw-bold" id="table-perempuan">101</td>
+                                        <td class="text-end fw-bold" id="table-perempuan">0</td>
                                     </tr>
                                 </tbody>
                                 <tfoot>
                                     <tr>
                                         <td><strong>Total</strong></td>
-                                        <td class="text-end fw-bold" id="table-total">202</td>
+                                        <td class="text-end fw-bold" id="table-total">0</td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -99,56 +104,108 @@
                 </div>
             </div>
 
-            <div class="count-card card card-body border-0 shadow-sm">
-                
-                <div class="count-control">
-                    <span>Laki-Laki</span>
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-outline-secondary count-btn" id="btn-laki-minus">
-                            <i class="bi bi-dash"></i>
-                        </button>
-                        
-                        <input type="number" class="count-display" id="count-laki" value="101" min="0">
-                        
-                        <button class="btn btn-outline-secondary count-btn" id="btn-laki-plus">
-                            <i class="bi bi-plus"></i>
-                        </button>
-                    </div>
+            <div class="count-card card card-body border-0 shadow-sm" style="display: none;">
                 </div>
-
-                <div class="count-control">
-                    <span>Perempuan</span>
-                    <div class="d-flex align-items-center">
-                        <button class="btn btn-outline-secondary count-btn" id="btn-perempuan-minus">
-                            <i class="bi bi-dash"></i>
-                        </button>
-                        
-                        <input type="number" class="count-display" id="count-perempuan" value="101" min="0">
-                        
-                        <button class="btn btn-outline-secondary count-btn" id="btn-perempuan-plus">
-                            <i class="bi bi-plus"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <hr>
-                
-                <div class="count-control">
-                    <strong>Total</strong>
-                    <strong class="fs-5" id="count-total">202</strong>
-                </div>
-            </div>
         </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
+        const API_BASE_URL = 'http://localhost/WEBSITE-PPKS/Back-End/public/api';
+
         document.addEventListener('DOMContentLoaded', function() {
             const sidebar = document.getElementById('sidebar');
             const toggleButton = document.getElementById('sidebarToggle');
             const mainContent = document.getElementById('mainContent');
+            const statsLoader = document.getElementById('statsLoader');
+            const statCardMain = document.getElementById('statCardMain');
+            
+            let genderChart;
+            
+            // Memuat Info Admin
+            function loadAdminInfo() {
+                const userData = sessionStorage.getItem('userData');
+                if (!userData) {
+                    window.location.href = 'index.html'; 
+                    return;
+                }
+                const user = JSON.parse(userData);
+                document.getElementById('adminName').textContent = user.nama_lengkap;
+                document.getElementById('adminRole').textContent = user.role.toUpperCase();
+            }
 
+            // Fungsi untuk membuat/memperbarui Chart
+            function updateChart(lakiCount, perempuanCount) {
+                const ctx = document.getElementById('genderDonutChart').getContext('2d');
+                const data = [lakiCount, perempuanCount];
+                const total = lakiCount + perempuanCount;
+                
+                document.getElementById('table-laki').textContent = lakiCount.toLocaleString('id-ID');
+                document.getElementById('table-perempuan').textContent = perempuanCount.toLocaleString('id-ID');
+                document.getElementById('table-total').textContent = total.toLocaleString('id-ID');
+
+                if (genderChart) {
+                    genderChart.data.datasets[0].data = data;
+                    genderChart.update();
+                    return;
+                }
+                
+                genderChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Laki-Laki', 'Perempuan'],
+                        datasets: [{
+                            label: 'Jumlah Pelapor',
+                            data: data,
+                            backgroundColor: ['#3B82F6', '#EF4444'],
+                            borderColor: ['#FFFFFF'],
+                            borderWidth: 4,
+                            hoverOffset: 4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        cutout: '70%',
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+            
+            // Mengambil Data Statistik Gender dari API
+            async function fetchGenderStats() {
+                statsLoader.style.display = 'block';
+                statCardMain.style.display = 'none';
+
+                try {
+                    // Endpoint ini mengembalikan statistik umum, asumsi gender dipisahkan di endpoint lain atau dihitung di frontend (sementara)
+                    // Kita akan menggunakan endpoint /admin/stats untuk simulasi data totalnya saja
+                    const response = await fetch(API_BASE_URL + '/admin/stats');
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        // SIMULASI data gender karena /admin/stats hanya mengembalikan 3 angka total
+                        // Di implementasi nyata, Anda akan membuat endpoint khusus seperti /admin/stats/gender
+                        const totalKorban = result.data.korban_berani_bicara; 
+                        const sim_laki = Math.floor(totalKorban * 0.49); // Simulasi 49%
+                        const sim_perempuan = totalKorban - sim_laki; 
+
+                        updateChart(sim_laki, sim_perempuan);
+                        statCardMain.style.display = 'block';
+                    } else {
+                        alert(`Gagal memuat statistik: ${result.message || 'Terjadi kesalahan API.'}`);
+                    }
+                } catch (error) {
+                    console.error('Error fetching stats:', error);
+                    statsLoader.innerHTML = '<p class="text-danger">Koneksi gagal. Pastikan backend berjalan.</p>';
+                } finally {
+                    statsLoader.style.display = 'none';
+                }
+            }
+
+
+            // Logika Sidebar Toggle (TETAP SAMA)
             toggleButton.addEventListener('click', function(event) {
                 event.stopPropagation(); 
                 sidebar.classList.toggle('active');
@@ -159,113 +216,11 @@
                     sidebar.classList.remove('active');
                 }
             });
+            
+            // START
+            loadAdminInfo();
+            fetchGenderStats();
         });
     </script>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            
-            // --- 1. INISIASI VARIABEL ---
-            let countLaki = 101;
-            let countPerempuan = 101;
-            let genderChart; 
-
-            const tableLaki = document.getElementById('table-laki');
-            const tablePerempuan = document.getElementById('table-perempuan');
-            const tableTotal = document.getElementById('table-total');
-            const btnLakiMinus = document.getElementById('btn-laki-minus');
-            const btnLakiPlus = document.getElementById('btn-laki-plus');
-            const countLakiEl = document.getElementById('count-laki'); // Ini <input>
-            const btnPerempuanMinus = document.getElementById('btn-perempuan-minus');
-            const btnPerempuanPlus = document.getElementById('btn-perempuan-plus');
-            const countPerempuanEl = document.getElementById('count-perempuan'); // Ini <input>
-            const countTotalEl = document.getElementById('count-total'); // Ini <span>
-
-            // --- 2. FUNGSI DIPERBAIKI ---
-            
-            // Fungsi ini HANYA update total, tabel, dan chart
-            function updateDependents() {
-                let total = countLaki + countPerempuan;
-                
-                countTotalEl.textContent = total; 
-                tableLaki.textContent = countLaki;
-                tablePerempuan.textContent = countPerempuan;
-                tableTotal.textContent = total;
-                genderChart.data.datasets[0].data = [countLaki, countPerempuan];
-                genderChart.update();
-            }
-
-            // Fungsi ini update nilai di kotak input (dipakai oleh tombol +/-)
-            function updateInputs() {
-                countLakiEl.value = countLaki;
-                countPerempuanEl.value = countPerempuan;
-            }
-
-            // --- 3. BUAT CHART AWAL ---
-            const ctx = document.getElementById('genderDonutChart').getContext('2d');
-            genderChart = new Chart(ctx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Laki-Laki', 'Perempuan'],
-                    datasets: [{
-                        label: 'Jumlah Pelapor',
-                        data: [countLaki, countPerempuan],
-                        backgroundColor: ['#3B82F6', '#EF4444'],
-                        borderColor: ['#FFFFFF'],
-                        borderWidth: 4,
-                        hoverOffset: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    cutout: '70%',
-                    plugins: { legend: { display: false } }
-                }
-            });
-
-            // --- 4. EVENT LISTENER UNTUK TOMBOL (+/-) ---
-            btnLakiPlus.addEventListener('click', () => {
-                countLaki++;
-                updateInputs(); // Update kotak input
-                updateDependents(); // Update sisa (total, chart)
-            });
-            btnLakiMinus.addEventListener('click', () => {
-                if (countLaki > 0) {
-                    countLaki--;
-                    updateInputs(); // Update kotak input
-                    updateDependents(); // Update sisa (total, chart)
-                }
-            });
-
-            btnPerempuanPlus.addEventListener('click', () => {
-                countPerempuan++;
-                updateInputs(); // Update kotak input
-                updateDependents(); // Update sisa (total, chart)
-            });
-            btnPerempuanMinus.addEventListener('click', () => {
-                if (countPerempuan > 0) {
-                    countPerempuan--;
-                    updateInputs(); // Update kotak input
-                    updateDependents(); // Update sisa (total, chart)
-                }
-            });
-
-            // --- 5. EVENT LISTENER UNTUK MENGETIK (INPUT) ---
-            countLakiEl.addEventListener('input', () => {
-                countLaki = parseInt(countLakiEl.value, 10) || 0;
-                // Saat mengetik, JANGAN update inputnya lagi (itu penyebab loop)
-                // Cukup update total dan chart saja
-                updateDependents(); 
-            });
-
-            countPerempuanEl.addEventListener('input', () => {
-                countPerempuan = parseInt(countPerempuanEl.value, 10) || 0;
-                // Cukup update total dan chart saja
-                updateDependents();
-            });
-        });
-    </script>
-
 </body>
 </html>

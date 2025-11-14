@@ -1,0 +1,5 @@
+# Back-End/.htaccess (File di root folder Back-End)
+
+# Mengarahkan semua request ke folder public/
+RewriteEngine On
+RewriteRule !^public/ public/ [L]

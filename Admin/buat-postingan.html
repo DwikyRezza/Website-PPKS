@@ -26,7 +26,8 @@
             <div class="user-profile">
                 <i class="bi bi-person-circle me-2 fs-3"></i>
                 <div class="user-info">
-                    <span class="user-name">(nama_Admin)</span><span class="user-role">Admin</span>
+                    <span class="user-name" id="adminName">(Memuat...)</span>
+                    <span class="user-role" id="adminRole">Admin</span>
                 </div>
             </div>
         </nav>
@@ -51,7 +52,7 @@
                                         <i class="bi bi-image default-icon"></i>
                                         <img src="#" alt="Image Preview" id="imagePreview" class="image-preview">
                                     </label>
-                                    <input type="file" id="imageUpload" accept="image/*" class="d-none">
+                                    <input type="file" id="imageUpload" name="imageUpload" accept="image/*" class="d-none">
                                 </div>
                                 <div class="validation-error" id="imageError">
                                     Gambar tidak boleh kosong.
@@ -59,7 +60,7 @@
                             </div>
                             
                             <div class="col-lg-8">
-                                <input type="text" id="postJudul" class="form-control post-input-judul" placeholder="Judul">
+                                <input type="text" id="postJudul" name="postJudul" class="form-control post-input-judul" placeholder="Judul">
                                 <div class="validation-error" id="judulError">
                                     Judul tidak boleh kosong.
                                 </div>
@@ -67,7 +68,7 @@
                         </div>
 
                         <div>
-                            <textarea id="postIsi" class="form-control post-input-isi" placeholder="(isi)" rows="10"></textarea>
+                            <textarea id="postIsi" name="postIsi" class="form-control post-input-isi" placeholder="(isi)" rows="10"></textarea>
                             <div class="validation-error" id="isiError">
                                 Isi tidak boleh kosong.
                             </div>
@@ -76,7 +77,7 @@
                 </div>
 
                 <footer class="content-footer-blog">
-                    <button type="submit" class="btn btn-primary posting-btn">Posting</button>
+                    <button type="submit" class="btn btn-primary posting-btn" id="postBtn">Posting</button>
                 </footer>
             </form>
         </main>
@@ -85,31 +86,26 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // ... (Kode toggle sidebar Anda) ...
-            const sidebar = document.getElementById('sidebar');
-            const toggleButton = document.getElementById('sidebarToggle');
-            const mainContent = document.getElementById('mainContent');
-            toggleButton.addEventListener('click', function(event) {
-                event.stopPropagation(); 
-                sidebar.classList.toggle('active');
-            });
-            mainContent.addEventListener('click', function() {
-                if (sidebar.classList.contains('active')) {
-                    sidebar.classList.remove('active');
-                }
-            });
-        });
-    </script>
+        const API_BASE_URL = 'http://localhost/WEBSITE-PPKS/Back-End/public/api';
 
-    <script>
         document.addEventListener('DOMContentLoaded', function() {
-            
+            // Memuat Info Admin
+            function loadAdminInfo() {
+                const userData = sessionStorage.getItem('userData');
+                if (!userData) {
+                    window.location.href = 'index.html'; 
+                    return;
+                }
+                const user = JSON.parse(userData);
+                document.getElementById('adminName').textContent = user.nama_lengkap;
+                document.getElementById('adminRole').textContent = user.role.toUpperCase();
+            }
+
             // --- 1. SCRIPT UNTUK IMAGE PREVIEW ---
             const imageUpload = document.getElementById('imageUpload');
             const imagePreview = document.getElementById('imagePreview');
             const imageUploadLabel = document.getElementById('imageUploadLabel');
-
+            
             imageUpload.addEventListener('change', function(event) {
                 const file = event.target.files[0];
                 if (file) {
@@ -122,45 +118,96 @@
                 }
             });
 
-            // --- 2. SCRIPT UNTUK VALIDASI FORM ---
+            // --- 2. SCRIPT UNTUK SUBMIT FORM KE API ---
             const postForm = document.getElementById('postForm');
             const postJudul = document.getElementById('postJudul');
             const postIsi = document.getElementById('postIsi');
+            const postBtn = document.getElementById('postBtn');
             
             const imageError = document.getElementById('imageError');
             const judulError = document.getElementById('judulError');
             const isiError = document.getElementById('isiError');
 
-            postForm.addEventListener('submit', function(event) {
+            function toggleError(element, show) {
+                element.style.display = show ? 'block' : 'none';
+            }
+
+            postForm.addEventListener('submit', async function(event) {
                 event.preventDefault(); 
                 let isValid = true;
-
-                // Reset semua error (sembunyikan)
-                imageError.style.display = 'none';
-                judulError.style.display = 'none';
-                isiError.style.display = 'none';
-
-                // Validasi 1: Cek Judul
+                
+                // Reset semua error
+                toggleError(imageError, false);
+                toggleError(judulError, false);
+                toggleError(isiError, false);
+                
+                // Validasi
                 if (postJudul.value.trim() === '') {
-                    judulError.style.display = 'block';
+                    toggleError(judulError, true);
                     isValid = false;
                 }
-                // Validasi 2: Cek Isi
                 if (postIsi.value.trim() === '') {
-                    isiError.style.display = 'block';
+                    toggleError(isiError, true);
                     isValid = false;
                 }
-                // Validasi 3: Cek Gambar
                 if (imageUpload.files.length === 0) {
-                    imageError.style.display = 'block';
+                    toggleError(imageError, true);
                     isValid = false;
                 }
-                // Jika semua valid
-                if (isValid) {
-                    alert('Postingan berhasil dibuat!');
-                    window.location.href = 'blogspot.html';
+
+                if (!isValid) return;
+
+                // Disable tombol dan tampilkan loading
+                const originalText = postBtn.innerHTML;
+                postBtn.disabled = true;
+                postBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Memposting...';
+
+                // Gunakan FormData untuk mengirim data teks dan file
+                const formData = new FormData();
+                formData.append('postJudul', postJudul.value);
+                formData.append('postIsi', postIsi.value);
+                if (imageUpload.files[0]) {
+                    formData.append('imageUpload', imageUpload.files[0]);
+                }
+                
+                try {
+                    const response = await fetch(API_BASE_URL + '/posts', {
+                        method: 'POST',
+                        body: formData // TIDAK PERLU Content-Type header saat menggunakan FormData
+                    });
+
+                    const result = await response.json();
+
+                    if (response.ok && result.success) {
+                        alert('Postingan berhasil dibuat!');
+                        window.location.href = 'blogspot.html';
+                    } else {
+                        alert(`Gagal membuat postingan: ${result.message || 'Terjadi kesalahan server.'}`);
+                    }
+                } catch (error) {
+                    console.error('Network Error:', error);
+                    alert('Koneksi ke server gagal. Pastikan backend berjalan.');
+                } finally {
+                    postBtn.disabled = false;
+                    postBtn.innerHTML = originalText;
                 }
             });
+            
+            // Logika Sidebar Toggle (TETAP SAMA)
+            const sidebar = document.getElementById('sidebar');
+            const toggleButton = document.getElementById('sidebarToggle');
+            const mainContent = document.getElementById('mainContent');
+            toggleButton.addEventListener('click', function(event) {
+                event.stopPropagation(); 
+                sidebar.classList.toggle('active');
+            });
+            mainContent.addEventListener('click', function() {
+                if (sidebar.classList.contains('active')) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            loadAdminInfo();
         });
     </script>
 </body>
